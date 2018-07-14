@@ -2,6 +2,6 @@
 
 int main()
 {
-	std::cout<<"hello world3uuu33444443332!"<<std::endl;
+	std::cout<<"heluulo world3uuu33444443332!"<<std::endl;
 	return 0;
 }
