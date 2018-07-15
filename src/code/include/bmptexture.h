@@ -23,4 +23,6 @@ public:
     bool findTextureByName(std::string filename, unsigned int &textureNum);
 };
 
+static BmpTexture bmpTexture;
+
 #endif // BMPTEXTURE_H
