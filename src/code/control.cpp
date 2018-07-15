@@ -1,6 +1,7 @@
 #include"Base.h"
 #include"Map.h"
 
+#include"math.h"
 
 //static Map* GameMap;
 float eye[3] = { 0,0,0 };
@@ -13,6 +14,10 @@ void Init()
 	glShadeModel(GL_FLAT);
 	//ReadMAPBmpFile();
 	//ReadBmpFile();
+    glMatrixMode(GL_PROJECTION);
+    //glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_TEXTURE_2D);
+    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(600, 600);
@@ -22,16 +27,23 @@ void Init()
 	Base::Block_Width = 30;
 }
 
+
 void display()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 	//glLoadIdentity();
 	//gluLookAt(0, 0, 1,0, 0, 0,0, 1, 0);
-	glPushMatrix();
-	glTranslatef(move[0], move[1], 0);
-	Base::GameMap->ReDraw();
-	glPopMatrix();
-	glutSwapBuffers();
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //指定混合函数
+
+    glPushMatrix();
+    glTranslatef(move[0], move[1], 0);
+
+    Base::GameMap->ReDraw();
+
+    glPopMatrix();
+
+    glutSwapBuffers();
 }
 
 void reshape(int width,int height)
@@ -41,7 +53,7 @@ void reshape(int width,int height)
 
 void idle()
 {
-	glutPostRedisplay();
+    glutPostRedisplay();
 }
 
 void KeyBehavior(unsigned char key, int x, int y)
@@ -67,8 +79,8 @@ int main(int argc, char* argv[])
 	Init();
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(KeyBehavior);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glutDisplayFunc(&display);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glutDisplayFunc(&display);
 	glutIdleFunc(idle);
 	glutMainLoop();
 }
