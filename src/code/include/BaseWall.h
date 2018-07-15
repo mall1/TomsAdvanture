@@ -28,9 +28,9 @@ public:
 	}
 	bool IsInBlock(int x, int y)
 	{
-		x = 2 * x / Base::Window_Width;
-		y = 2 * y / Base::Window_Height;
-		return x >= PositionX - Base::Block_Width && x <= PositionX + Base::Block_Width && y >= PositionY - Base::Block_Width && y <= PositionY + Base::Block_Width;
+		GLfloat a = 2.0 * x / Base::Window_Width;
+		GLfloat b = 2.0 * y / Base::Window_Height;
+		return IsInBlock(a, b);
 	}
 	//中心为坐标原点
 	BaseWall() {};

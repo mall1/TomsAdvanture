@@ -2,7 +2,7 @@
 #pragma warning(disable:4996)
 #include"Wall.h"
 #include"Floor.h"
-#include"MiniMap.h"
+#include"MapUnit.h"
 
 class Map
 {
@@ -11,7 +11,7 @@ private:
 	std::vector<Wall*> AllWall;//暂时无用
 	std::vector<Floor*>AllFloor;//暂时无用
 	std::vector<BaseWall*>AllBlock;
-	std::vector<MiniMap*>AllMiniMap;
+	std::vector<MapUnit*>AllMapUnit;
 public:
 	Wall * ForeachWall(int i)
 	{
@@ -70,22 +70,55 @@ public:
 		}
 	}
 
-	MiniMap * ForeachMiniMap(int i)
+	MapUnit * ForeachMapUnit(int i)
 	{
-		if (i >= AllMiniMap.size())return NULL;
-		return AllMiniMap[i];
+		if (i >= AllMapUnit.size())return NULL;
+		return AllMapUnit[i];
 	}
-	void AddToMiniMap(MiniMap* t) { AllMiniMap.push_back(t); }
+	void AddToMapUnit(MapUnit* t) { AllMapUnit.push_back(t); }
+	void DeleteMapUnit(MapUnit*t)
+	{
+		std::vector<MapUnit*>::iterator it;
+		for (it = AllMapUnit.begin();it != AllMapUnit.end();it++)
+		{
+			if (*it == t)
+			{
+				AllMapUnit.erase(it);
+				break;
+			}
+		}
+	}
 
 	BaseWall* GetWhichBlock(int x, int y)
 	{
 		for (int i = 0;i < AllWall.size();i++)
-			if (AllWall[i]->IsInBlock(x, y))
-				return AllWall[i];
-		for (int i = 0;i < AllFloor.size();i++)
-			if (AllFloor[i]->IsInBlock(x, y))
-				return AllFloor[i];
+			if (AllBlock[i]->IsInBlock(x, y))
+				return AllBlock[i];
 	}
+	BaseWall* GetWhichBlock(GLfloat x, GLfloat y)
+	{
+		for (int i = 0;i < AllWall.size();i++)
+			if (AllBlock[i]->IsInBlock(x, y))
+				return AllBlock[i];
+	}
+	//传入中心为坐标原点的坐标，返回所在块指针
+	MapUnit* GetWhichMapUnit(int x, int y)
+	{
+		for (int i = 0;i < AllMapUnit.size();i++)
+		{
+			if (AllMapUnit[i]->IsInMapUnit(x, y))
+				return AllMapUnit[i];
+		}
+	}
+	MapUnit* GetWhichMapUnit(GLfloat x, GLfloat y)
+	{
+		for (int i = 0;i < AllMapUnit.size();i++)
+		{
+			if (AllMapUnit[i]->IsInMapUnit(x, y))
+				return AllMapUnit[i];
+		}
+	}
+	//传入中心为原点的坐标，返回所在地图单元（战斗和通道）指针
 
 	void ReadBlockFile()
 	{
@@ -118,17 +151,12 @@ public:
 
 	void ReDraw()
 	{
-		//for (int i = 0;i < AllFloor.size();i++)
-			//AllFloor[i]->ReDraw();
 		for (int i = 0;i < AllBlock.size();i++)
 			AllBlock[i]->ReDraw();
-		/*glPixelZoom(3, 3);
-		glRasterPos2f(0, 0);
-		glDrawPixels(20, 20, GL_BGR_EXT, GL_UNSIGNED_BYTE, Base::PixelData[0]);*/
 	}
 
 	Map();
-	void MapGenerate(int num);
+	void MapGenerate(int num);//传入地图块数
 	~Map();
 };
 

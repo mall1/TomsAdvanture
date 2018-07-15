@@ -1,14 +1,14 @@
 #pragma once
-#include "MiniMap.h"
+#include "MapUnit.h"
 class AcrossMap :
-	public MiniMap
+	public MapUnit
 {
 private:
-	Base::Block Across[10][10];
+	Base::Block Across[20][20];
 	bool isUpDown;//trueÊúµÄ£¬falseºáµÄ
 public:
 	AcrossMap();
-	AcrossMap(bool i, MiniMap* ul, MiniMap* dr);
+	AcrossMap(bool i, MapUnit* ul, MapUnit* dr);
 	~AcrossMap();
 	void Generate();
 };

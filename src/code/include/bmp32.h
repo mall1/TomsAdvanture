@@ -1,5 +1,6 @@
 ﻿#ifndef BMP32_H_
 #define BMP32_H_
+#pragma warning(disable:4996)
 
 #include <stdint.h>
 #include <stdlib.h>
