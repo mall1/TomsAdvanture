@@ -2,7 +2,7 @@
 #pragma warning(disable:4996)
 #include"Wall.h"
 #include"Floor.h"
-
+#include"MiniMap.h"
 
 class Map
 {
@@ -11,6 +11,7 @@ private:
 	std::vector<Wall*> AllWall;//暂时无用
 	std::vector<Floor*>AllFloor;//暂时无用
 	std::vector<BaseWall*>AllBlock;
+	std::vector<MiniMap*>AllMiniMap;
 public:
 	Wall * ForeachWall(int i)
 	{
@@ -69,6 +70,13 @@ public:
 		}
 	}
 
+	MiniMap * ForeachMiniMap(int i)
+	{
+		if (i >= AllMiniMap.size())return NULL;
+		return AllMiniMap[i];
+	}
+	void AddToMiniMap(MiniMap* t) { AllMiniMap.push_back(t); }
+
 	BaseWall* GetWhichBlock(int x, int y)
 	{
 		for (int i = 0;i < AllWall.size();i++)
@@ -87,7 +95,7 @@ public:
 			switch (t) 
 			{
 			case Base::Block::wall:pFile = fopen("E://C++//PictureTomV//bmp//wall.bmp", "rb");break;
-			case Base::Block::floorblock:pFile = fopen("E://C++//PictureTomV//bmp//floor.bmp", "rb");break;
+			case Base::Block::floorblock:pFile = fopen("E://C++//PictureTomV//bmp//ground.bmp", "rb");break;
 			}
 			if (pFile == 0)
 				break;
@@ -119,7 +127,8 @@ public:
 		glDrawPixels(20, 20, GL_BGR_EXT, GL_UNSIGNED_BYTE, Base::PixelData[0]);*/
 	}
 
-	Map();//随机生成地图
+	Map();
+	void MapGenerate(int num);
 	~Map();
 };
 

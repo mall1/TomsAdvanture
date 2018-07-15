@@ -1,5 +1,6 @@
 #pragma once
 #include"GL/glut.h"
+#include"ctime"
 #include"map"
 #include"list"
 #include"vector"
