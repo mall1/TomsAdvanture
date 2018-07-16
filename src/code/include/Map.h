@@ -8,8 +8,8 @@ class Map
 {
 private:
 	//std::map<Base::Block, std::vector<BaseWall*>>AllBlock;
-	std::vector<Wall*> AllWall;//脭脻脢卤脦脼脫脙
-	std::vector<Floor*>AllFloor;//脭脻脢卤脦脼脫脙
+	std::vector<Wall*> AllWall;//暂时无用
+	std::vector<Floor*>AllFloor;//暂时无用
 	std::vector<BaseWall*>AllBlock;
 	std::vector<MapUnit*>AllMapUnit;
 public:
@@ -89,27 +89,41 @@ public:
 		}
 	}
 
-	BaseWall* GetWhichBlock(int x, int y)
+	/*BaseWall* GetWhichBlock(int x, int y)
 	{
-		for (int i = 0;i < AllWall.size();i++)
+		for (int i = 0;i < AllBlock.size();i++)
 			if (AllBlock[i]->IsInBlock(x, y))
 				return AllBlock[i];
-	}
+		return NULL;
+	}*/
 	BaseWall* GetWhichBlock(GLfloat x, GLfloat y)
 	{
-		for (int i = 0;i < AllWall.size();i++)
+		int m, n;
+		MapUnit* t = GetWhichMapUnit(x, y, m);
+		t->GetBlockState(x, y, n);
+		return AllBlock[m + n];
+		/*for (int i = 0;i < AllBlock.size();i++)
 			if (AllBlock[i]->IsInBlock(x, y))
-				return AllBlock[i];
+				return AllBlock[i];*/
+		//return AllBlock[0];
 	}
-	//沤芦脠毛脰脨脨脛脦陋脳酶卤锚脭颅碌茫碌脛脳酶卤锚拢卢路碌禄脴脣霉脭脷驴茅脰啪脮毛
-	MapUnit* GetWhichMapUnit(int x, int y)
+	//传入中心为坐标原点的坐标，返回所在块指针
+	bool IsBlockWall(GLfloat x, GLfloat y)
+	{
+		MapUnit* t = GetWhichMapUnit(x, y);
+		if (t->GetBlockState(x, y) == Base::wall)return true;
+		return false;
+	}
+	//判断该座标所在快是否为墙，时间复杂度较低
+	/*MapUnit* GetWhichMapUnit(int x, int y)
 	{
 		for (int i = 0;i < AllMapUnit.size();i++)
 		{
 			if (AllMapUnit[i]->IsInMapUnit(x, y))
 				return AllMapUnit[i];
 		}
-	}
+		return NULL;
+	}*/
 	MapUnit* GetWhichMapUnit(GLfloat x, GLfloat y)
 	{
 		for (int i = 0;i < AllMapUnit.size();i++)
@@ -117,37 +131,55 @@ public:
 			if (AllMapUnit[i]->IsInMapUnit(x, y))
 				return AllMapUnit[i];
 		}
+		return NULL;
 	}
-	//沤芦脠毛脰脨脨脛脦陋脭颅碌茫碌脛脳酶卤锚拢卢路碌禄脴脣霉脭脷碌脴脥艗碌楼脭陋拢拧脮艙露路潞脥脥拧碌脌拢漏脰啪脮毛
-
-	void ReadBlockFile()
+	MapUnit* GetWhichMapUnit(GLfloat x, GLfloat y,int &node)
 	{
-		FILE * pFile=NULL;
-		for (Base::Block t = Base::Block::wall;t < Base::Block::BlockLimit;t = (Base::Block)(t + 1))
+		node = -1;
+		for (int i = 0;i < AllMapUnit.size();i++)
 		{
-			switch (t) 
+			if (AllMapUnit[i]->IsInMapUnit(x, y))
+				return AllMapUnit[i];
+			else
 			{
-			case Base::Block::wall:pFile = fopen("E://C++//PictureTomV//bmp//wall.bmp", "rb");break;
-			case Base::Block::floorblock:pFile = fopen("E://C++//PictureTomV//bmp//ground.bmp", "rb");break;
+				if (AllMapUnit[i]->IsonType(Base::fightmap))
+					node += Base::FightMapWidth*Base::FightMapWidth;
+				else if (AllMapUnit[i]->IsonType(Base::acrossmap))
+					node += Base::FightMapWidth*(2 + Base::FightMapWidth - 2 * int(Base::FightMapWidth / 3));
 			}
-			if (pFile == 0)
-				break;
-			fseek(pFile, 0x0012, SEEK_SET);
-			//fread(&Block_Width, sizeof(Block_Width), 1, pFile);
-			fread(&Base::Block_Width, sizeof(Base::Block_Width), 1, pFile);
-			Base::Block_PixelLength = Base::Block_Width * 3;
-			while (Base::Block_PixelLength % 4 != 0)
-				++Base::Block_PixelLength;
-			Base::Block_PixelLength *= Base::Block_Width;
-			Base::PixelData[t] = (GLubyte*)malloc(Base::Block_PixelLength);
-			if (Base::PixelData[t] == 0)
-				exit(0);
-			fseek(pFile, 54, SEEK_SET);  //脤酶鹿媒脦脛艗镁脥路潞脥脨脜脧垄脥路
-			fread(Base::PixelData[t], Base::Block_PixelLength, 1, pFile);
-			//Base::PixelData[t] = Base::PixelData[t];
-			fclose(pFile);
 		}
+		return NULL;
 	}
+	//传入中心为原点的坐标，返回所在地图单元（战斗和通道）指针
+
+	//void ReadBlockFile()
+	//{
+	//	FILE * pFile=NULL;
+	//	for (Base::Block t = Base::Block::wall;t < Base::Block::BlockLimit;t = (Base::Block)(t + 1))
+	//	{
+	//		switch (t) 
+	//		{
+	//		case Base::Block::wall:pFile = fopen("E://C++//PictureTomV//bmp//wall.bmp", "rb");break;
+	//		case Base::Block::floorblock:pFile = fopen("E://C++//PictureTomV//bmp//ground.bmp", "rb");break;
+	//		}
+	//		if (pFile == 0)
+	//			break;
+	//		fseek(pFile, 0x0012, SEEK_SET);
+	//		//fread(&Block_Width, sizeof(Block_Width), 1, pFile);
+	//		fread(&Base::Block_Width, sizeof(Base::Block_Width), 1, pFile);
+	//		Base::Block_PixelLength = Base::Block_Width * 3;
+	//		while (Base::Block_PixelLength % 4 != 0)
+	//			++Base::Block_PixelLength;
+	//		Base::Block_PixelLength *= Base::Block_Width;
+	//		Base::PixelData[t] = (GLubyte*)malloc(Base::Block_PixelLength);
+	//		if (Base::PixelData[t] == 0)
+	//			exit(0);
+	//		fseek(pFile, 54, SEEK_SET);  //跳过文件头和信息头
+	//		fread(Base::PixelData[t], Base::Block_PixelLength, 1, pFile);
+	//		//Base::PixelData[t] = Base::PixelData[t];
+	//		fclose(pFile);
+	//	}
+	//}
 
 	void ReDraw()
 	{
@@ -156,7 +188,7 @@ public:
 	}
 
 	Map();
-	void MapGenerate(int num);//沤芦脠毛碌脴脥艗驴茅脢媒
+	void MapGenerate(int num);//传入地图块数
 	~Map();
 };
 

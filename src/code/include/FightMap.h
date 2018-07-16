@@ -4,7 +4,6 @@ class FightMap :
 	public MapUnit
 {
 private:
-	Base::Block MiniTurn[20][20];
 	bool isStart;
 	bool isEnd;
 public:

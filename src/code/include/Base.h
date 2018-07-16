@@ -13,8 +13,11 @@ public:
 	static int Window_Width;
 	static int Window_Height;
 
-	static GLfloat Block_Size;//驴脡卤盲露炉碌脛啪帽脳脫沤贸脨隆
-	static int FightMapWidth;//驴脡卤盲露炉碌脛脨隆碌脴脥艗碌楼卤脽啪帽脢媒
+	static GLfloat Block_Size;//可变动格子大小 
+	static int FightMapWidth;//可变动小地图单边格数 
+	
+	static GLfloat step;
+	static GLfloat ForgiveValue;//计算碰撞体积的原谅系数 
 
 	static GLint Block_Width;
 	static GLint Block_PixelLength;
@@ -23,6 +26,7 @@ public:
 
 	static Map* GameMap;
 	static MiniMap* SMap;
+	static Tom* tom;
 
 
 	enum Skill { a1, b1 ,SkillLimit};
@@ -30,6 +34,7 @@ public:
 	enum State { e1, f1 ,StateLimit};
 	enum Block { wall, floorblock, BlockLimit };
 	enum MapType{fightmap,acrossmap,MapLimit};
+	enum Rotate{up,down,left,right,RotateLimit};
 
 	//std::map<Skill, > SkillPicture;//value脦陋脧脿脫艩脥艗脝卢脨脜脧垄
 	//std::map<Item, > ItemPicture;

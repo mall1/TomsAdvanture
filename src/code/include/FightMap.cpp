@@ -51,32 +51,34 @@ void FightMap::Generate()
 		if (Left != NULL)MiniTurn[i][0] = Base::floorblock;
 		if (Right != NULL)MiniTurn[i][Base::FightMapWidth - 1] = Base::floorblock;
 	}
-	//if (isStart)return;
-	//if (isEnd)return;//ŽýÌî³ä
-	//srand((unsigned)time(NULL));
-	for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) /16 ;t++)
+	//if (isStart);
+	 if (isEnd);
+	else
 	{
-		int i = rand() % (Base::FightMapWidth / 2 - 1);
-		int j = rand() % (Base::FightMapWidth / 2 - 1);
-		//if (MiniTurn[i + 1][j + 1] == Base::wall)
-		//	t--;
-		//else
-		//{
+		for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 32;t++)
+		{
+			int i = rand() % (Base::FightMapWidth / 2 - 1);
+			int j = rand() % (Base::FightMapWidth / 2 - 1);
+			//if (MiniTurn[i + 1][j + 1] == Base::wall)
+			//	t--;
+			//else
+			//{
 			MiniTurn[i + 1][j + 1] = Base::wall;
 			MiniTurn[Base::FightMapWidth - i - 2][Base::FightMapWidth - j - 2] = Base::wall;
-		//}
-	}
-	for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 16;t++)
-	{
-		int i = rand() % (Base::FightMapWidth / 2 - 1);
-		int j = rand() % (Base::FightMapWidth / 2 - 1);
-		//if (MiniTurn[Base::FightMapWidth - i - 2][j + 1] == Base::wall)
-			//t--;
-		//else
-		//{
+			//}
+		}
+		for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 16;t++)
+		{
+			int i = rand() % (Base::FightMapWidth / 2 - 1);
+			int j = rand() % (Base::FightMapWidth / 2 - 1);
+			//if (MiniTurn[Base::FightMapWidth - i - 2][j + 1] == Base::wall)
+				//t--;
+			//else
+			//{
 			MiniTurn[Base::FightMapWidth - i - 2][j + 1] = Base::wall;
 			MiniTurn[i + 1][Base::FightMapWidth - j - 2] = Base::wall;
-		//}
+			//}
+		}
 	}
 	GLfloat left = (1 - Base::FightMapWidth)*Base::Block_Size / 2;
 	GLfloat right = (Base::FightMapWidth - 1)*Base::Block_Size / 2;
