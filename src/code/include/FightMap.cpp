@@ -52,7 +52,7 @@ void FightMap::Generate()
 		if (Right != NULL)MiniTurn[i][Base::FightMapWidth - 1] = Base::floorblock;
 	}
 	//if (isStart)return;
-	//if (isEnd)return;//´ýÌî³ä
+	//if (isEnd)return;//Å½Ã½ÃŒÃ®Â³Ã¤
 	//srand((unsigned)time(NULL));
 	for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) /16 ;t++)
 	{

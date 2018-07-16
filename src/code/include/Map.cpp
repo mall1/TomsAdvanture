@@ -29,7 +29,7 @@ Map::Map()
 	//}
 }
 
-//������ɵ�ͼ
+//Ëæ»úÉú³ÉµØÍŒ
 
 void Map::MapGenerate(int num)
 {
@@ -57,7 +57,7 @@ void Map::MapGenerate(int num)
 					//AllMapUnit.pop_back();
 					//AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = m;//ʹ��ͨ����֤��ǰ���ػ�
+					AllMapUnit[n] = m;//Ê¹ÉÏÍšµÀ±£Ö€ÔÚÇ°±»ÖØ»æ
 				}
 				else
 				{
@@ -123,7 +123,7 @@ void Map::MapGenerate(int num)
 					//AllMapUnit.pop_back();
 					//AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = m;//ʹ��ͨ����֤��ǰ���ػ�
+					AllMapUnit[n] = m;//Ê¹ÉÏÍšµÀ±£Ö€ÔÚÇ°±»ÖØ»æ
 				}
 				else
 				{

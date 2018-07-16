@@ -23,7 +23,7 @@ public:
 		glEnable(GL_TEXTURE_2D);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glBindTexture(GL_TEXTURE_2D, bmpTexture.getTextureByName("E://C++//PictureTomV//bmp//wall-gray.bmp"));
+		glBindTexture(GL_TEXTURE_2D, bmpTexture.getTextureByName(WALL_GRAY));
 		glBegin(GL_POLYGON);
 		glTexCoord2f(1, 1);
 		glVertex3f(PositionX + size, PositionY + size * 1.75, 0);

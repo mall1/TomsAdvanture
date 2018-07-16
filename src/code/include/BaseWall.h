@@ -2,6 +2,9 @@
 #include"Base.h"
 
 
+#define GROUND_BLUE "../image/ground-blue.bmp"
+#define WALL_GRAY "../image/wall-green.bmp"
+
 
 class BaseWall
 {
@@ -9,7 +12,7 @@ protected:
 	Base::Block BlockName;
 	GLfloat PositionX;
 	GLfloat PositionY;
-	bool CanDestroy;//是否能被摧毁
+	bool CanDestroy;//脢脟路帽脛脺卤禄沤脻禄脵
 public:
 	void SetPositionX(GLfloat x) { PositionX = x; }
 	void SetPositionX(int x) { PositionX = 2 * x / Base::Window_Width; }
@@ -32,7 +35,7 @@ public:
 		GLfloat b = 2.0 * y / Base::Window_Height;
 		return IsInBlock(a, b);
 	}
-	//中心为坐标原点
+	//脰脨脨脛脦陋脳酶卤锚脭颅碌茫
 	BaseWall() {};
 	~BaseWall() {};
 };

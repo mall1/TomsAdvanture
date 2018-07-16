@@ -13,8 +13,8 @@ public:
 	static int Window_Width;
 	static int Window_Height;
 
-	static GLfloat Block_Size;//可变动的格子大小
-	static int FightMapWidth;//可变动的小地图单边格数
+	static GLfloat Block_Size;//驴脡卤盲露炉碌脛啪帽脳脫沤贸脨隆
+	static int FightMapWidth;//驴脡卤盲露炉碌脛脨隆碌脴脥艗碌楼卤脽啪帽脢媒
 
 	static GLint Block_Width;
 	static GLint Block_PixelLength;
@@ -31,7 +31,7 @@ public:
 	enum Block { wall, floorblock, BlockLimit };
 	enum MapType{fightmap,acrossmap,MapLimit};
 
-	//std::map<Skill, > SkillPicture;//value为相应图片信息
+	//std::map<Skill, > SkillPicture;//value脦陋脧脿脫艩脥艗脝卢脨脜脧垄
 	//std::map<Item, > ItemPicture;
 	//std::map<State, > StatePicture;
 };

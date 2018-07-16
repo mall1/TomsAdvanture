@@ -3,7 +3,7 @@
 using namespace std;
 
 GameState::GameState()
-	:Current_State(HomePage),played(0) {}  /*初始界面在主界面*/
+	:Current_State(HomePage),played(0) {}  /*鲁玫脢艗艙莽脙忙脭脷脰梅艙莽脙忙*/
 
 GameState::GameState(enum state s,bool played)
 	: Current_State(s),played(played) {}

@@ -5,7 +5,7 @@ class AcrossMap :
 {
 private:
 	Base::Block Across[20][20];
-	bool isUpDown;//trueÊúµÄ£¬falseºáµÄ
+	bool isUpDown;//trueÃŠÃºÂµÃ„Â£Â¬falseÂºÃ¡ÂµÃ„
 public:
 	AcrossMap();
 	AcrossMap(bool i, MapUnit* ul, MapUnit* dr);

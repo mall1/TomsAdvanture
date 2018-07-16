@@ -65,7 +65,7 @@ public:
 			t = Base::GameMap->ForeachMapUnit(count);
 		}
 	}
-	MiniMap();
+	MiniMap(){};
 	MiniMap(GLfloat x, GLfloat y)
 	{
 		PositionX = x;
@@ -76,6 +76,6 @@ public:
 		TomSize = 0.025;
 		Size = 12;
 	}
-	~MiniMap();
+	~MiniMap(){};
 };
 

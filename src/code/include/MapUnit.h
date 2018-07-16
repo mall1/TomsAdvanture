@@ -34,8 +34,8 @@ public:
 		return IsInMapUnit(x, y);
 	}
 
-	MapUnit();
-	~MapUnit();
+	MapUnit(){};
+	~MapUnit(){};
 	virtual void Generate() = 0;
 };
 

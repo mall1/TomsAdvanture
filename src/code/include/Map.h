@@ -8,8 +8,8 @@ class Map
 {
 private:
 	//std::map<Base::Block, std::vector<BaseWall*>>AllBlock;
-	std::vector<Wall*> AllWall;//暂时无用
-	std::vector<Floor*>AllFloor;//暂时无用
+	std::vector<Wall*> AllWall;//脭脻脢卤脦脼脫脙
+	std::vector<Floor*>AllFloor;//脭脻脢卤脦脼脫脙
 	std::vector<BaseWall*>AllBlock;
 	std::vector<MapUnit*>AllMapUnit;
 public:
@@ -101,7 +101,7 @@ public:
 			if (AllBlock[i]->IsInBlock(x, y))
 				return AllBlock[i];
 	}
-	//传入中心为坐标原点的坐标，返回所在块指针
+	//沤芦脠毛脰脨脨脛脦陋脳酶卤锚脭颅碌茫碌脛脳酶卤锚拢卢路碌禄脴脣霉脭脷驴茅脰啪脮毛
 	MapUnit* GetWhichMapUnit(int x, int y)
 	{
 		for (int i = 0;i < AllMapUnit.size();i++)
@@ -118,7 +118,7 @@ public:
 				return AllMapUnit[i];
 		}
 	}
-	//传入中心为原点的坐标，返回所在地图单元（战斗和通道）指针
+	//沤芦脠毛脰脨脨脛脦陋脭颅碌茫碌脛脳酶卤锚拢卢路碌禄脴脣霉脭脷碌脴脥艗碌楼脭陋拢拧脮艙露路潞脥脥拧碌脌拢漏脰啪脮毛
 
 	void ReadBlockFile()
 	{
@@ -142,7 +142,7 @@ public:
 			Base::PixelData[t] = (GLubyte*)malloc(Base::Block_PixelLength);
 			if (Base::PixelData[t] == 0)
 				exit(0);
-			fseek(pFile, 54, SEEK_SET);  //跳过文件头和信息头
+			fseek(pFile, 54, SEEK_SET);  //脤酶鹿媒脦脛艗镁脥路潞脥脨脜脧垄脥路
 			fread(Base::PixelData[t], Base::Block_PixelLength, 1, pFile);
 			//Base::PixelData[t] = Base::PixelData[t];
 			fclose(pFile);
@@ -156,7 +156,7 @@ public:
 	}
 
 	Map();
-	void MapGenerate(int num);//传入地图块数
+	void MapGenerate(int num);//沤芦脠毛碌脴脥艗驴茅脢媒
 	~Map();
 };
 

@@ -5,38 +5,38 @@
 enum operation { NewGame, Continue, Recovery, Setup, Stop, Home, Finish, ProcessFinish, Killed, GameOver };
 enum state { HomePage, GamePage, GameOverPage, StopPage, Home_SetupPage,Game_SetupPage };
 
-struct elements	/*记录各个组件是否显示*/
+struct elements	/*艗脟脗艗啪梅啪枚脳茅艗镁脢脟路帽脧脭脢鸥*/
 {
-	bool background = 0;/*主界面的背景图*/
-	bool home_setup_button = 0;/*主界面的设置按钮*/
-	bool newgame = 0;/*“新游戏”按钮*/
-	bool lifespan = 0;/*生命值栏*/
-	bool bulletnum = 0;/*子弹数目栏*/
-	bool stop_button = 0;	/*游戏界面的暂停按钮*/
-	bool arm = 0;/*武器显示*/
-	bool stop_popup = 0;/*暂停界面的弹窗*/
-	bool home_button = 0;/*暂停界面的回到主页按钮*/
-	bool recovery = 0;/*暂停界面的回到游戏按钮*/
-	bool stop_setup = 0;/*暂停界面的设置按钮*/
-	bool setup_popup = 0;/*设置界面弹窗*/
-	bool voice = 0;/*暂停界面的音量设置*/
-	bool speed = 0;/*暂停界面的速度设置*/
-	bool finish = 0;/*设置界面的完成按钮*/
-	bool continue_game = 0;/*有历史存档后的主界面的“继续游戏”按钮*/
-	bool gameover = 0;/*死亡后的游戏结束界面背景图*/
+	bool background = 0;/*脰梅艙莽脙忙碌脛卤鲁鸥掳脥艗*/
+	bool home_setup_button = 0;/*脰梅艙莽脙忙碌脛脡猫脰脙掳沤脜楼*/
+	bool newgame = 0;/*隆掳脨脗脫脦脧路隆卤掳沤脜楼*/
+	bool lifespan = 0;/*脡煤脙眉脰碌脌啪*/
+	bool bulletnum = 0;/*脳脫碌炉脢媒脛驴脌啪*/
+	bool stop_button = 0;	/*脫脦脧路艙莽脙忙碌脛脭脻脥拢掳沤脜楼*/
+	bool arm = 0;/*脦盲脝梅脧脭脢鸥*/
+	bool stop_popup = 0;/*脭脻脥拢艙莽脙忙碌脛碌炉沤掳*/
+	bool home_button = 0;/*脭脻脥拢艙莽脙忙碌脛禄脴碌艙脰梅脪鲁掳沤脜楼*/
+	bool recovery = 0;/*脭脻脥拢艙莽脙忙碌脛禄脴碌艙脫脦脧路掳沤脜楼*/
+	bool stop_setup = 0;/*脭脻脥拢艙莽脙忙碌脛脡猫脰脙掳沤脜楼*/
+	bool setup_popup = 0;/*脡猫脰脙艙莽脙忙碌炉沤掳*/
+	bool voice = 0;/*脭脻脥拢艙莽脙忙碌脛脪么脕驴脡猫脰脙*/
+	bool speed = 0;/*脭脻脥拢艙莽脙忙碌脛脣脵露脠脡猫脰脙*/
+	bool finish = 0;/*脡猫脰脙艙莽脙忙碌脛脥锚鲁脡掳沤脜楼*/
+	bool continue_game = 0;/*脫脨脌煤脢路沤忙碌碌潞贸碌脛脰梅艙莽脙忙碌脛隆掳艗脤脨酶脫脦脧路隆卤掳沤脜楼*/
+	bool gameover = 0;/*脣脌脥枚潞贸碌脛脫脦脧路艙谩脢酶艙莽脙忙卤鲁鸥掳脥艗*/
 
 };
 
 class GameState
 {
 private:
-	enum state Current_State;/*记录当前游戏状态*/
-	bool played;/*记录是否有历史存档*/
+	enum state Current_State;/*艗脟脗艗碌卤脟掳脫脦脧路脳沤脤卢*/
+	bool played;/*艗脟脗艗脢脟路帽脫脨脌煤脢路沤忙碌碌*/
 public:
 	GameState();
 	GameState(enum state s,bool played);
-	void StateChange(enum operation op);/*状态转换，在信号传入后进行游戏状态切换*/
-	enum state Currentstate();/*返回当前状态*/
+	void StateChange(enum operation op);/*脳沤脤卢脳陋禄禄拢卢脭脷脨脜潞脜沤芦脠毛潞贸艙酶脨脨脫脦脧路脳沤脤卢脟脨禄禄*/
+	enum state Currentstate();/*路碌禄脴碌卤脟掳脳沤脤卢*/
 	struct elements display();
 	void set_played(bool p);
 	void set_CurrentState(enum state s);
