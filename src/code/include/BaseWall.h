@@ -7,7 +7,7 @@
 #else
 #define GROUND_BLUE "../image/ground-blue.bmp"
 #define WALL_GRAY "../image/wall-green.bmp"
-#end
+#endif
 
 class BaseWall
 {

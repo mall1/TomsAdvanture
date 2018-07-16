@@ -68,6 +68,10 @@ void Map::MapGenerate(int num)
 					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, false, true, AllMapUnit[n], NULL, NULL, NULL);
 					AllMapUnit[n]->SetDownMap(t);
 					AcrossMap*m = new AcrossMap(true, AllMapUnit[n], t);
+					AllMapUnit.pop_back();
+					AllMapUnit.pop_back();
+					AllMapUnit.push_back(m);
+					AllMapUnit.push_back(t);
 				}
 				else
 				{
@@ -132,6 +136,10 @@ void Map::MapGenerate(int num)
 					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, false, false, AllMapUnit[n], NULL, NULL, NULL);
 					AllMapUnit[n]->SetDownMap(t);
 					AcrossMap*m = new AcrossMap(true, AllMapUnit[n], t);
+					AllMapUnit.pop_back();
+					AllMapUnit.pop_back();
+					AllMapUnit.push_back(m);
+					AllMapUnit.push_back(t);
 				}
 				else
 				{
