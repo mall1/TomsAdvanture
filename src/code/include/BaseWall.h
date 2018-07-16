@@ -1,10 +1,13 @@
 #pragma once
 #include"Base.h"
 
-
+#ifdef linux
 #define GROUND_BLUE "../image/ground-blue.bmp"
 #define WALL_GRAY "../image/wall-green.bmp"
-
+#else
+#define GROUND_BLUE "../image/ground-blue.bmp"
+#define WALL_GRAY "../image/wall-green.bmp"
+#end
 
 class BaseWall
 {
@@ -12,7 +15,7 @@ protected:
 	Base::Block BlockName;
 	GLfloat PositionX;
 	GLfloat PositionY;
-	bool CanDestroy;//脢脟路帽脛脺卤禄沤脻禄脵
+	bool CanDestroy;//是否能被摧毁 
 public:
 	void SetPositionX(GLfloat x) { PositionX = x; }
 	void SetPositionX(int x) { PositionX = 2 * x / Base::Window_Width; }

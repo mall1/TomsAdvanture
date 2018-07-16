@@ -29,8 +29,6 @@ Map::Map()
 	//}
 }
 
-//Ëæ»úÉú³ÉµØÍŒ
-
 void Map::MapGenerate(int num)
 {
 	int n;//node
@@ -43,7 +41,6 @@ void Map::MapGenerate(int num)
 		else if (i == num - 1)
 		{
 			srand((unsigned)time(NULL));
-			//t = rand() % i;
 			rotate = rand() % 4;
 			switch (rotate)
 			{
@@ -54,10 +51,10 @@ void Map::MapGenerate(int num)
 					AllMapUnit[n]->SetUpMap(t);
 					AcrossMap*m = new AcrossMap(true, t, AllMapUnit[n]);
 					AllMapUnit.pop_back();
-					//AllMapUnit.pop_back();
-					//AllMapUnit.push_back(m);
+					AllMapUnit.pop_back();
+					AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = m;//Ê¹ÉÏÍšµÀ±£Ö€ÔÚÇ°±»ÖØ»æ
+					AllMapUnit[n] = t;//Make sure that the bmp on top redraw first 
 				}
 				else
 				{
@@ -108,8 +105,6 @@ void Map::MapGenerate(int num)
 		}
 		else
 		{
-			//srand((unsigned)time(NULL));
-			//t = rand() % i;
 			rotate = rand() % 4;
 			switch (rotate)
 			{
@@ -120,10 +115,10 @@ void Map::MapGenerate(int num)
 					AllMapUnit[n]->SetUpMap(t);
 					AcrossMap*m = new AcrossMap(true, t, AllMapUnit[n]);
 					AllMapUnit.pop_back();
-					//AllMapUnit.pop_back();
-					//AllMapUnit.push_back(m);
+					AllMapUnit.pop_back();
+					AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = m;//Ê¹ÉÏÍšµÀ±£Ö€ÔÚÇ°±»ÖØ»æ
+					AllMapUnit[n] = t;//Make sure that the bmp on top redraw first 
 				}
 				else
 				{

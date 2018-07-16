@@ -59,9 +59,6 @@ int main(int argc, char* argv[])
 	Base::GameMap = new Map();
 	Base::GameMap->MapGenerate(6);
 	Base::SMap = new MiniMap(-0.8,0.8);
-	//Map* t = new Map(6);
-	//Base::GameMap = t;
-	//GameMap->ReadBlockFile();
 	glutInit(&argc, argv);
 	Init();
 	glutReshapeFunc(reshape);

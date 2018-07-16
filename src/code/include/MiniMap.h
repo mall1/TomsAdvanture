@@ -29,8 +29,8 @@ public:
 		MapUnit* t=Base::GameMap->ForeachMapUnit(count);
 		while (t != NULL)
 		{
-			GLfloat x = PositionX + Width * t->GetPositionX() / (Size * 2);
-			GLfloat y = PositionY + Height * t->GetPositionY() / (Size * 2);
+			GLfloat x = PositionX + Width * t->GetPositionX() / (Size * Base::Block_Size*Base::FightMapWidth);
+			GLfloat y = PositionY + Height * t->GetPositionY() / (Size * Base::Block_Size*Base::FightMapWidth);
 			count++;
 			if (t->IsonType(Base::fightmap))
 			{
