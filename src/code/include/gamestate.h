@@ -1,7 +1,6 @@
 #pragma once
 #ifndef GAMESTATE
 #define GAMESTATE
-#include"gamestate.h"
 enum operation { NewGame, Continue, Recovery, Setup, Stop, Home, Finish, ProcessFinish, Killed, GameOver };
 enum state { HomePage, GamePage, GameOverPage, StopPage, Home_SetupPage,Game_SetupPage };
 
