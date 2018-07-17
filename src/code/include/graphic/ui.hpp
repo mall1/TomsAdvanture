@@ -41,32 +41,28 @@ void keyboard(unsigned char key, int x, int y)
 void init(int argc, char* argv[]){
 
     glutInit(&argc, argv);
-    double color[7][4]={1,1,1,1,
+    /*double color[7][4]={1,1,1,1,
                  1,0,1,1,
                  0,1,1,1,
                  1,1,0,1,
                  1,0,0,1,
                  0,1,0,1,
-                 0,0,1,1};
+                 0,0,1,1};*/
 
     window= new Window("Tom's Adventure");
     window->addView("BEGIN");
-    //window->curView->layout.type=Layout::Type::vertical;
+	window->curView->layout.type = Layout::Type::vertical;
     window->curView->layout.addItem(1);
-    window->curView->layout.addItem(2);
-    window->curView->layout.addItem(3);
-    window->curView->layout.addItem(2);
+    window->curView->layout.addItem(6);
     window->curView->layout.addItem(1);
-
-    Layout lll("sub");
-
-    window->curView->layout.items[2].item=&lll;
-    lll.Parent=&window->curView->layout.items[2];
-
-    lll.type=Layout::Type::vertical;
-    lll.addItem(1);
-    lll.addItem(1);
-    lll.addItem(1);
+    Layout Setup("Setup");
+    window->curView->layout.items[0].item=&Setup;
+    Setup.Parent=&window->curView->layout.items[0];
+	Button
+	Setup.type = Layout::Type::horizontal;
+	Setup.addItem(1);
+	Setup.addItem(4);
+	Setup.addItem(1);
     //window->curView->layout.items[2].isHide=1;
     for(unsigned int j=0;j<window->curView->layout.items.size();j++)
         for(int i=0;i<4;i++)
