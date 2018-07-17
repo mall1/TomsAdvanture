@@ -1,6 +1,6 @@
 #pragma once
 #include"GL/glut.h"
-#include"bmptexture.h"
+#include"graphic/bmptexture.h"
 #include"ctime"
 #include"vector"
 #include"math.h"
