@@ -98,7 +98,7 @@ void Graphic::drawFont(int lx, int ty, std::string text, std::string fontName, i
     SDL_Color textColor = { 255, 255, 0 };
     SDL_Rect t;
     t.x=lx;
-    t.y=ty;
+    t.y=initH-ty;
     SDL_Surface* message = TTF_RenderText_Solid( font,text.c_str(), textColor );
     SDL_BlitSurface(message,NULL, screen, &t);
 

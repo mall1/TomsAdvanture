@@ -1,9 +1,10 @@
 #ifndef WIDGET_HPP
 #define WIDGET_HPP
 
+#include "control.hpp"
 #include "graphic.hpp"
 #include <string>
-
+#include <functional>
  class Widget{
 public:
     static int maxid;
@@ -26,12 +27,20 @@ public:
     Widget *Parent;
     virtual void display(){
         if(isDisplay&&!isHide)
+        //if(!isHide)
             Graphic::drawRect(lx,rx,ty,by,texture,color,subRraphRule);
     }
-    virtual bool onclick(int x, int y){
+    virtual bool mouseEvent(Control::MouseEventType type, int x, int y){
         if(!isHide)
             if(lx<=x&&x<=rx&&by<=y&&y<=ty){
-                std::cout<<name<<"clicked"<<std::endl;
+                switch(type){
+                case Control::MouseEventType::leftKeyUp: std::cout<<"left key up ";break;
+                case Control::MouseEventType::leftKeyDown: std::cout<<"left key down ";break;
+                case Control::MouseEventType::move: std::cout<<"move ";break;
+                default:break;
+                }
+
+                //std::cout<<name<<"clicked"<<std::endl;
                 return true;
             }
         return false;

@@ -33,14 +33,14 @@ public:
         }
     }
     void updateCoord(){}
-    bool onclick(int x, int y){
+    bool mouseEvent(Control::MouseEventType type,int x, int y){
         bool clicked;
         updateCoord();
-        clicked=Widget::onclick(x,y);
+        clicked=Widget::mouseEvent(type,x,y);
         if(!isHide)
             if(lx<=x&&x<=rx&&by<=y&&y<=ty){
                 if(item)
-                    item->onclick(x,y);
+                    item->mouseEvent(type,x,y);
             }
         return clicked;
     }
@@ -126,14 +126,14 @@ public:
                 items[i]->display();
         }
     }
-    bool onclick(int x, int y){
+    bool mouseEvent(Control::MouseEventType type,int x, int y){
         bool clicked;
         updateCoord();
-        clicked=Widget::onclick(x,y);
+        clicked=Widget::mouseEvent(type,x,y);
         if(!isHide)
             if(lx<=x&&x<=rx&&by<=y&&y<=ty)
                 for(unsigned int i=0; i< items.size();i++)
-                    items[i]->onclick(x,y);
+                    items[i]->mouseEvent(type, x,y);
         return clicked;
     }
 };

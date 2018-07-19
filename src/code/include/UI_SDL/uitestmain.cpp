@@ -1,12 +1,13 @@
 #include <iostream>
 #include "ui.hpp"
 #include "timer.hpp"
+
 int main(int argc, char* argv[])
 {
     UI::init();
     Timer timer;
     timer.start();
-    while (1) {
+    while (!UI::isQuit()) {
         UI::nextFrame();
         //printf("flush");
 
@@ -15,4 +16,5 @@ int main(int argc, char* argv[])
             SDL_Delay( ( 1000. / UI::fps ) - timer.get_ticks() );
         }
     }
+
 }
