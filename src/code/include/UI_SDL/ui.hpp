@@ -40,7 +40,7 @@ Window * UI::createWindow(){
 /*BEGIN VIEW*/    /*将整个开始界面从上到下分为4层，分别占1/8，5/8，1/8，1/8，设置键放在第一层，新游戏键放在第三层*/
     //view
     window->addView("BEGIN",Layout::Type::vertical);
-    //window->curView->addTexture("setup-background.png");
+    window->curView->addTexture("begin-background.png");
     //layer
     Layout *SetupLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal ,"SetupLayer");
     window->curView->layout.addItem(5);
@@ -58,45 +58,48 @@ Window * UI::createWindow(){
 
 /*游戏界面*/
     window->addView("InGame",Layout::Type::vertical);
-
+	
     Layout *HeadLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"HeadLine");
     window->curView->layout.addItem(6);
     Layout *EndLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"Endline");
 
     HeadLayer->addItem(2);    //HeadLayer->items[0].item = new Lifespan("Lifespan");/*在第一层最左边插入血条控件*/
     HeadLayer->addItem(6);
-    HeadLayer->addItem(1,0,new Button("Stop"));/*在第一层最右边插入暂停控件*/
+    HeadLayer->addItem(1,0,new Button("Stop","stop.png"));/*在第一层最右边插入暂停控件*/
 
     EndLayer->addItem(8);
-    EndLayer->addItem(1,0,new Button("Arm"));
+    EndLayer->addItem(1,0,new Button("Arm","arm.png"));
 
 /*暂停界面*/
     window->addView("StopGame",Layout::Type::vertical);
-
+	//window->curView->addTexture("stop-background.png");
+	
     window->curView->layout.addItem(1);
     Layout *MiddleLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"MiddleLine");
     window->curView->layout.addItem(1);
 
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("Home"));
+    MiddleLayer->addItem(1,0,new Button("Home","home.png"));
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("ContinueGame"));
+    MiddleLayer->addItem(1,0,new Button("ContinueGame","continue.png"));
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("Setup"));
+    MiddleLayer->addItem(1,0,new Button("Setup","set.png"));
     MiddleLayer->addItem(1);
 
 /*设置界面*/
     window->addView("Setup",Layout::Type::vertical);
+    //window->curView->addTexture("setup-background.png");
     window->curView->layout.addItem(1);
     Layout *FinishLayer = window->curView->layout.addSubLayout(6,0,Layout::Type::horizontal,"FinishLayer");
     window->curView->layout.addItem(1);
 
     FinishLayer->addItem(4);
-    FinishLayer->addItem(1,0,new Button("Finish"));
+    FinishLayer->addItem(1,0,new Button("Finish","ok.png"));
     FinishLayer->addItem(4);
 
 /*游戏结束界面*/
     window->addView("Gameover");
+    window->curView->addTexture("gameover.png");
 
 /*Initialize window with setup view*/
     window->curView=window->views[0];
