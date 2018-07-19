@@ -2,7 +2,7 @@
 #define WINDOWSTATE_HPP
 namespace WindowState {
 	enum Signal { NewGame, Continue, Recovery, Setup, Stsignal, Home, Finish, ProcessFinish, Killed, GameOver };
-	enum State { HomePage, GamePage, GameOverPage, StsignalPage, Home_SetupPage, Game_SetupPage };
+	enum State { HomePage, GamePage, GameOverPage, StopPage, Home_SetupPage,Game_SetupPage };
 	State curState;
 	void feedSignal(Signal signal) {
 		switch (curState)
