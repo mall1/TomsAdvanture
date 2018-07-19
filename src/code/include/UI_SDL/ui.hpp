@@ -40,7 +40,7 @@ Window * UI::createWindow(){
 /*BEGIN VIEW*/    /*将整个开始界面从上到下分为4层，分别占1/8，5/8，1/8，1/8，设置键放在第一层，新游戏键放在第三层*/
     //view
     window->addView("BEGIN",Layout::Type::vertical);
-    window->curView->addTexture("begin-background.png");
+    window->curView->addTexture("../image/UI/begin-background.png");
     //layer
     Layout *SetupLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal ,"SetupLayer");
     window->curView->layout.addItem(5);
@@ -48,12 +48,12 @@ Window * UI::createWindow(){
     window->curView->layout.addItem(1);
     //widgets
     SetupLayer->addItem(5);
-    SetupLayer->addItem(1,0,new Button("Setup","setting-icon.png"));/*在第一层最右边插入按钮控件*/
+    SetupLayer->addItem(1,0,new Button("Setup","setting-icon.png",(int *)windowstate::Signal::Setup));/*在第一层最右边插入按钮控件*/
 
     NewgameLayer->addItem(3);
-    NewgameLayer->addItem(2,0,new Button("NewGame","new-game.png"));
+    NewgameLayer->addItem(2,0,new Button("NewGame","new-game.png",(int *)windowstate::Signal::NewGame));
     NewgameLayer->addItem(2);
-    NewgameLayer->addItem(2,0,new Button("RestartGame","continue-game.png"));
+    NewgameLayer->addItem(2,0,new Button("RestartGame","continue-game.png",(int *)windowstate::Signal::Continue));
     NewgameLayer->addItem(3);
 
 /*游戏界面*/
@@ -61,14 +61,14 @@ Window * UI::createWindow(){
 	
     Layout *HeadLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"HeadLine");
     window->curView->layout.addItem(6);
-    Layout *EndLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"Endline");
+    //Layout *EndLayer = window->curView->layout.addSubLayout(1,0,Layout::Type::horizontal,"Endline");
 
     HeadLayer->addItem(2);    //HeadLayer->items[0].item = new Lifespan("Lifespan");/*在第一层最左边插入血条控件*/
     HeadLayer->addItem(6);
-    HeadLayer->addItem(1,0,new Button("Stop","stop.png"));/*在第一层最右边插入暂停控件*/
+    HeadLayer->addItem(1,0,new Button("Stop","stop.png",(int *)windowstate::Signal::Stop));/*在第一层最右边插入暂停控件*/
 
-    EndLayer->addItem(8);
-    EndLayer->addItem(1,0,new Button("Arm","arm.png"));
+    /*EndLayer->addItem(8);
+    EndLayer->addItem(1,0,new Button("Arm","arm.png",));*/
 
 /*暂停界面*/
     window->addView("StopGame",Layout::Type::vertical);
@@ -79,11 +79,11 @@ Window * UI::createWindow(){
     window->curView->layout.addItem(1);
 
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("Home","home.png"));
+    MiddleLayer->addItem(1,0,new Button("Home","home.png",(int *)windowstate::Signal::Home));
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("ContinueGame","continue.png"));
+    MiddleLayer->addItem(1,0,new Button("ContinueGame","continue.png",(int *)windowstate::Signal::Recovery));
     MiddleLayer->addItem(1);
-    MiddleLayer->addItem(1,0,new Button("Setup","set.png"));
+    MiddleLayer->addItem(1,0,new Button("Setup","set.png",(int *)windowstate::Signal::Setup));
     MiddleLayer->addItem(1);
 
 /*设置界面*/
@@ -94,7 +94,7 @@ Window * UI::createWindow(){
     window->curView->layout.addItem(1);
 
     FinishLayer->addItem(4);
-    FinishLayer->addItem(1,0,new Button("Finish","ok.png"));
+    FinishLayer->addItem(1,0,new Button("Finish","ok.png",(int *)windowstate::Signal::Finish));
     FinishLayer->addItem(4);
     
 /*设置界面*/
@@ -105,7 +105,7 @@ Window * UI::createWindow(){
     window->curView->layout.addItem(1);
 
     FinishLayer->addItem(4);
-    FinishLayer->addItem(1,0,new Button("Finish","ok.png"));
+    FinishLayer->addItem(1,0,new Button("Finish","ok.png",(int *)windowstate::Signal::ProcessFinish));
     FinishLayer->addItem(4);  
 
 /*游戏结束界面*/
