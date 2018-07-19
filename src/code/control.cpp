@@ -1,12 +1,12 @@
-#include"Base.h"
-#include"Map.h"
-#include"MiniMap.h"
-#include"Tom.h"
-#include"NormalBullet.h"
-#include"HandGun.h"
-#include"RPG.h"
-#include"HandGunSoldier.h"
-#include"MachineArmor.h"
+#include"include/Base.h"
+#include"include/Map.h"
+#include"include/MiniMap.h"
+#include"include/Tom.h"
+#include"include/NormalBullet.h"
+#include"include/HandGun.h"
+#include"include/RPG.h"
+#include"include/HandGunSoldier.h"
+#include"include/MachineArmor.h"
 #include"iostream"
 
 
@@ -16,6 +16,7 @@ bool Shoot = false;
 int bx;
 int by;
 int count = 0;
+bool Pause=false;
 
 void Init()
 {
@@ -55,6 +56,11 @@ void reshape(int width,int height)
 
 void idle()
 {
+	if(Pause)
+	{
+		glutPostRedisplay();
+		return;
+	}
 	if (Base::CounterAll == Base::Clk)
 		Base::CounterAll = 0;
 	else Base::CounterAll++;
@@ -89,6 +95,7 @@ void KeyBehavior(unsigned char key, int x, int y)
 	case 's':TomMove[1] = true;break;
 	case 'a':TomMove[2] = true;break;
 	case 'd':TomMove[3] = true;break;
+	case:'p':Pause=!Pause;break;
 	}
 	//glutPostRedisplay();
 }
