@@ -87,7 +87,7 @@ Window * UI::createWindow(){
     MiddleLayer->addItem(1);
 
 /*设置界面*/
-    window->addView("Setup",Layout::Type::vertical);
+    window->addView("Home-Setup",Layout::Type::vertical);
     //window->curView->addTexture("setup-background.png");
     window->curView->layout.addItem(1);
     Layout *FinishLayer = window->curView->layout.addSubLayout(6,0,Layout::Type::horizontal,"FinishLayer");
@@ -96,6 +96,17 @@ Window * UI::createWindow(){
     FinishLayer->addItem(4);
     FinishLayer->addItem(1,0,new Button("Finish","ok.png"));
     FinishLayer->addItem(4);
+    
+/*设置界面*/
+    window->addView("Game-Setup",Layout::Type::vertical);
+    //window->curView->addTexture("setup-background.png");
+    window->curView->layout.addItem(1);
+    Layout *FinishLayer = window->curView->layout.addSubLayout(6,0,Layout::Type::horizontal,"FinishLayer");
+    window->curView->layout.addItem(1);
+
+    FinishLayer->addItem(4);
+    FinishLayer->addItem(1,0,new Button("Finish","ok.png"));
+    FinishLayer->addItem(4);  
 
 /*游戏结束界面*/
     window->addView("Gameover");
