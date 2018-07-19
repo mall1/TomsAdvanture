@@ -3,7 +3,7 @@
 #include"Map.h"
 class bullet
 {
-private:
+protected:
 	GLfloat PositionX;
 	GLfloat PositionY;
 	//float BulletAngle;//子弹运动角度tan
@@ -13,6 +13,7 @@ private:
 	float Speed;
 	int Damage;//伤害
 	GLfloat BulletSize;
+	bool isEnemy;
 	
 public:
 	static std::vector<bullet*>AllBullet;
@@ -55,14 +56,14 @@ public:
 			PositionY += Base::step*Speed *AngleY / (abs(AngleX) + abs(AngleY));
 		}
 	}
-	void MoveJudge()
+	virtual void MoveJudge()
 	{
 		//JumpInfinite();
 		JumpTwice();
 		//Normal();
 	}
 	//子弹运动判断：撞墙delete，撞人delete
-	void ReDraw()
+	virtual void ReDraw()
 	{
 		float R = BulletSize / 2;
 		float Pi = 3.14159;
@@ -77,23 +78,13 @@ public:
 		for (int i = 0;i < AllBullet.size();i++)
 			AllBullet[i]->ReDraw();
 	}
-	bullet(GLfloat x,GLfloat y,int x1,int y1)
+	static void AllMoveJudge()
 	{
-		PositionX = x;PositionY = y;AngleX = x1;AngleY = y1;Damage = 1;BulletSize = Base::Block_Size / 2;Speed = 2;countjump = 3;
-		AllBullet.push_back(this);
+		for (int i = 0;i < bullet::AllBullet.size();i++)
+			AllBullet[i]->MoveJudge();
 	}
+	bullet(){}
 	//bullet(GLfloat x,GLfloat y,int b,int d){}
-	~bullet()
-	{
-		std::vector<bullet*>::iterator it;
-		for (it = AllBullet.begin();it != AllBullet.end();it++)
-		{
-			if (*it == this)
-			{
-				AllBullet.erase(it);
-				break;
-			}
-		}
-	}
+	~bullet(){}
 };
 

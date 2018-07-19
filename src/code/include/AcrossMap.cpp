@@ -22,6 +22,8 @@ AcrossMap::AcrossMap(bool i, MapUnit * ul, MapUnit * dr)
 				else
 					MiniTurn[i][j] = Base::floorblock;
 			}
+		Down->SetUpMap(this);
+		Up->SetDownMap(this);
 	}
 	else
 	{
@@ -35,6 +37,8 @@ AcrossMap::AcrossMap(bool i, MapUnit * ul, MapUnit * dr)
 				else
 					MiniTurn[i][j] = Base::floorblock;
 			}
+		Left->SetRightMap(this);
+		Right->SetLeftMap(this);
 	}
 	PositionX = (ul->GetPositionX() + dr->GetPositionX()) / 2;
 	PositionY = (ul->GetPositionY() + dr->GetPositionY()) / 2;

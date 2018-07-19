@@ -29,6 +29,8 @@ Map::Map()
 	//}
 }
 
+//随机生成地图
+
 void Map::MapGenerate(int num)
 {
 	int n;//node
@@ -37,24 +39,29 @@ void Map::MapGenerate(int num)
 	for (int i = 0;i < num;i++)
 	{
 		if (i == 0)
-			FightMap* t = new FightMap(0, 0, true, false);
+			FightMap* t = new FightMap(0, 0, Base::start);
 		else if (i == num - 1)
 		{
 			srand((unsigned)time(NULL));
+			//t = rand() % i;
 			rotate = rand() % 4;
 			switch (rotate)
 			{
 			case 0:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetUpMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth, false, true, NULL, AllMapUnit[n], NULL, NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth, Base::end, NULL, AllMapUnit[n], NULL, NULL);
 					AllMapUnit[n]->SetUpMap(t);
 					AcrossMap*m = new AcrossMap(true, t, AllMapUnit[n]);
 					AllMapUnit.pop_back();
 					AllMapUnit.pop_back();
 					AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = t;//Make sure that the bmp on top redraw first 
+					AllMapUnit[n] = t;//使上通道保证在前被重绘
 				}
 				else
 				{
@@ -65,13 +72,13 @@ void Map::MapGenerate(int num)
 			case 1:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetDownMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, false, true, AllMapUnit[n], NULL, NULL, NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, Base::end, AllMapUnit[n], NULL, NULL, NULL);
 					AllMapUnit[n]->SetDownMap(t);
 					AcrossMap*m = new AcrossMap(true, AllMapUnit[n], t);
-					AllMapUnit.pop_back();
-					AllMapUnit.pop_back();
-					AllMapUnit.push_back(m);
-					AllMapUnit.push_back(t);
 				}
 				else
 				{
@@ -82,7 +89,11 @@ void Map::MapGenerate(int num)
 			case 2:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetLeftMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), false, true, NULL, NULL, NULL, AllMapUnit[n]);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY()) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), Base::end, NULL, NULL, NULL, AllMapUnit[n]);
 					AllMapUnit[n]->SetLeftMap(t);
 					AcrossMap*m = new AcrossMap(false, t, AllMapUnit[n]);
 				}
@@ -95,7 +106,11 @@ void Map::MapGenerate(int num)
 			case 3:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetRightMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), false, true, NULL, NULL, AllMapUnit[n], NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY()) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), Base::end, NULL, NULL, AllMapUnit[n], NULL);
 					AllMapUnit[n]->SetRightMap(t);
 					AcrossMap*m = new AcrossMap(false, AllMapUnit[n], t);
 				}
@@ -109,20 +124,26 @@ void Map::MapGenerate(int num)
 		}
 		else
 		{
+			//srand((unsigned)time(NULL));
+			//t = rand() % i;
 			rotate = rand() % 4;
 			switch (rotate)
 			{
 			case 0:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap)&&AllMapUnit[n]->GetUpMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth, false, false, NULL, AllMapUnit[n], NULL, NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() + 2 * Base::Block_Size*Base::FightMapWidth, Base::fight, NULL, AllMapUnit[n], NULL, NULL);
 					AllMapUnit[n]->SetUpMap(t);
 					AcrossMap*m = new AcrossMap(true, t, AllMapUnit[n]);
 					AllMapUnit.pop_back();
 					AllMapUnit.pop_back();
 					AllMapUnit.push_back(m);
 					AllMapUnit.push_back(AllMapUnit[n]);
-					AllMapUnit[n] = t;//Make sure that the bmp on top redraw first 
+					AllMapUnit[n] = t;//使上通道保证在前被重绘
 				}
 				else
 				{
@@ -133,13 +154,13 @@ void Map::MapGenerate(int num)
 			case 1:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetDownMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, false, false, AllMapUnit[n], NULL, NULL, NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX(), AllMapUnit[n]->GetPositionY() - 2 * Base::Block_Size*Base::FightMapWidth, Base::fight, AllMapUnit[n], NULL, NULL, NULL);
 					AllMapUnit[n]->SetDownMap(t);
 					AcrossMap*m = new AcrossMap(true, AllMapUnit[n], t);
-					AllMapUnit.pop_back();
-					AllMapUnit.pop_back();
-					AllMapUnit.push_back(m);
-					AllMapUnit.push_back(t);
 				}
 				else
 				{
@@ -150,7 +171,11 @@ void Map::MapGenerate(int num)
 			case 2:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetLeftMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), false, false, NULL, NULL, NULL, AllMapUnit[n]);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY()) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() - 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), Base::fight, NULL, NULL, NULL, AllMapUnit[n]);
 					AllMapUnit[n]->SetLeftMap(t);
 					AcrossMap*m = new AcrossMap(false, t, AllMapUnit[n]);
 				}
@@ -163,7 +188,11 @@ void Map::MapGenerate(int num)
 			case 3:n = rand() % i;
 				if (AllMapUnit[n]->IsonType(Base::fightmap) && AllMapUnit[n]->GetRightMap() == NULL)
 				{
-					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), false, false, NULL, NULL, AllMapUnit[n], NULL);
+					if (GetWhichMapUnit(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY()) != NULL)
+					{
+						i--;continue;
+					}
+					FightMap*t = new FightMap(AllMapUnit[n]->GetPositionX() + 2 * Base::Block_Size*Base::FightMapWidth, AllMapUnit[n]->GetPositionY(), Base::fight, NULL, NULL, AllMapUnit[n], NULL);
 					AllMapUnit[n]->SetRightMap(t);
 					AcrossMap*m = new AcrossMap(false, AllMapUnit[n], t);
 				}

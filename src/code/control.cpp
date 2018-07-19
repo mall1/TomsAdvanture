@@ -1,8 +1,13 @@
-#include"include/Base.h"
-#include"include/Map.h"
-#include"include/MiniMap.h"
-#include"include/Tom.h"
-#include"include/bullet.h" 
+#include"Base.h"
+#include"Map.h"
+#include"MiniMap.h"
+#include"Tom.h"
+#include"NormalBullet.h"
+#include"HandGun.h"
+#include"RPG.h"
+#include"HandGunSoldier.h"
+#include"MachineArmor.h"
+#include"iostream"
 
 
 float move[2] = { 0,0 };
@@ -24,7 +29,7 @@ void Init()
 	glutCreateWindow("Tom's Adventure");
 	Base::Window_Width = 600;
 	Base::Window_Height = 600;
-	Base::Block_Width = 30;
+	//Base::Block_Width = 30;
 }
 
 void display()
@@ -32,11 +37,13 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glPushMatrix();
-	glTranslatef(move[0], move[1], 0);
+	//glTranslatef(move[0], move[1], 0);
 	Base::GameMap->ReDraw();
-	Base::SMap->ReDraw();
 	Base::tom->ReDraw();
+	Enemy::AllReDraw();
 	bullet::AllReDraw();
+	//glPopMatrix();
+	Base::SMap->ReDraw();
 	//glPopMatrix();
 	glutSwapBuffers();
 }
@@ -48,15 +55,19 @@ void reshape(int width,int height)
 
 void idle()
 {
+	if (Base::CounterAll == Base::Clk)
+		Base::CounterAll = 0;
+	else Base::CounterAll++;
 	if (Shoot)
 	{
-		if (count % 100 == 0)
+		if (count % Base::tom->GetNowWeapon()->GetAttackSpeed() == 0)
 			Base::tom->Shoot(bx, by);
 		count++;
 	}
 	else count = 0;
-	for (int i = 0;i < bullet::AllBullet.size();i++)
-		bullet::AllBullet[i]->MoveJudge();
+	bullet::AllMoveJudge();
+	Enemy::AllIsDied();
+	Enemy::AllJudge();
 	if(TomMove[0])
 		Base::tom->MoveStep(Base::up);
 	if(TomMove[1])
@@ -65,33 +76,32 @@ void idle()
 		Base::tom->MoveStep(Base::left);
 	if(TomMove[3])
 		Base::tom->MoveStep(Base::right);
+	Base::tom->GetNowMapUnit()->NoneEnemyJudge();
 	glutPostRedisplay();
 }
 
 void KeyBehavior(unsigned char key, int x, int y)
 {
+	std::cout << 1;
 	switch (key)
 	{
-	case 'w':move[1] -= 0.2;break;
-	case 's':move[1] += 0.2;break;
-	case 'a':move[0] += 0.2;break;
-	case 'd':move[0] -= 0.2;break;
-	case 'i':TomMove[0] = true;break;
-	case 'k':TomMove[1] = true;break;
-	case 'j':TomMove[2] = true;break;
-	case 'l':TomMove[3] = true;break;
+	case 'w':TomMove[0] = true;break;
+	case 's':TomMove[1] = true;break;
+	case 'a':TomMove[2] = true;break;
+	case 'd':TomMove[3] = true;break;
 	}
 	//glutPostRedisplay();
 }
 
 void KeyUp(unsigned char key, int x, int y)
 {
+	std::cout << 2;
 	switch (key)
 	{
-	case 'i':TomMove[0] = false;break;
-	case 'k':TomMove[1] = false;break;
-	case 'j':TomMove[2] = false;break;
-	case 'l':TomMove[3] = false;break;
+	case 'w':TomMove[0] = false;break;
+	case 's':TomMove[1] = false;break;
+	case 'a':TomMove[2] = false;break;
+	case 'd':TomMove[3] = false;break;
 	}
 }
 
@@ -99,13 +109,14 @@ void MouseBehavior(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
+		std::cout << 3;
 		Shoot = false;
 	}
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
 		Shoot = true;
-		bx = x - Base::Window_Width / 2 - Base::tom->GetPositionX()*Base::Window_Width / 2;
-		by = Base::Window_Height / 2 - y - Base::tom->GetPositionY()*Base::Window_Height / 2;
+		bx = x - Base::Window_Width / 2 - Base::tom->GetPositionX()*Base::Window_Width / 2 + Base::tom->GetNowMapUnit()->GetPositionX()*Base::Window_Width / 2;
+		by = Base::Window_Height / 2 - y - Base::tom->GetPositionY()*Base::Window_Height / 2 + Base::tom->GetNowMapUnit()->GetPositionY()*Base::Window_Height / 2;
 	}
 }
 
@@ -113,8 +124,8 @@ void MouseMove(int x, int y)
 {
 	if (Shoot)
 	{
-		bx = x - Base::Window_Width / 2 - Base::tom->GetPositionX()*Base::Window_Width / 2;
-		by = Base::Window_Height / 2 - y - Base::tom->GetPositionY()*Base::Window_Height / 2;
+		bx = x - Base::Window_Width / 2 - Base::tom->GetPositionX()*Base::Window_Width / 2 + Base::tom->GetNowMapUnit()->GetPositionX()*Base::Window_Width / 2;
+		by = Base::Window_Height / 2 - y - Base::tom->GetPositionY()*Base::Window_Height / 2 + Base::tom->GetNowMapUnit()->GetPositionY()*Base::Window_Height / 2;
 	}
 }
 
@@ -124,10 +135,26 @@ int main(int argc, char* argv[])
 	Base::GameMap->MapGenerate(6);
 	Base::SMap = new MiniMap(-0.8,0.8);
 	Base::tom = new Tom();
+	HandGun* t = new HandGun();
+	//RPG *t = new RPG();
+	Base::tom->ChangeWeapon(t);
+	//MachineArmor* x = new MachineArmor(0.4, 0.4);
+	for (int i = 0;i < 12;i++)
+	{
+		if (Base::GameMap->ForeachMapUnit(i)->GetPositionX() == 0 && Base::GameMap->ForeachMapUnit(i)->GetPositionY() == 0)
+		{
+			//Base::GameMap->ForeachMapUnit(i)->EnemyGenerate(4);
+			break;
+		}
+	}
+	//HandGunSoldier* m = new HandGunSoldier(0.4, 0);
+	//Map* t = new Map(6);
+	//Base::GameMap = t;
+	//GameMap->ReadBlockFile();
 	glutInit(&argc, argv);
 	Init();
 	glutReshapeFunc(reshape);
-	lutMouseFunc(MouseBehavior);
+	glutMouseFunc(MouseBehavior);
 	glutMotionFunc(MouseMove);
 	glutKeyboardFunc(KeyBehavior);
 	glutIgnoreKeyRepeat(1);//½ûÓÃkeyrepeat

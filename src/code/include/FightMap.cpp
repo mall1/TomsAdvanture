@@ -2,27 +2,33 @@
 #include"Map.h"
 
 
-FightMap::FightMap(GLfloat x, GLfloat y, bool s,bool e)
+FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t)
 {
 	TypeofMap = Base::fightmap;
 	PositionX = x;
 	PositionY = y;
-	isEnd = e;
-	isStart = s;
+	EventKind = t;
+	if (t==Base::start)
+		FightState = Base::fightdone;
+	else
+		FightState = Base::fightbefore;
 	Base::GameMap->AddToMapUnit(this);
 }
 
-FightMap::FightMap(GLfloat x, GLfloat y, bool s, bool e, MapUnit * u, MapUnit * d, MapUnit * l, MapUnit * r)
+FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t, MapUnit * u, MapUnit * d, MapUnit * l, MapUnit * r)
 {
 	TypeofMap = Base::fightmap;
 	PositionX = x;
 	PositionY = y;
-	isStart = s;
-	isEnd = e;
 	Up = u;
 	Down = d;
 	Left = l;
 	Right = r;
+	EventKind = t;
+	if (t == Base::start)
+		FightState = Base::fightdone;
+	else
+		FightState = Base::fightbefore;
 	Base::GameMap->AddToMapUnit(this);
 }
 
@@ -46,19 +52,20 @@ void FightMap::Generate()
 	}
 	for (int i = Base::FightMapWidth / 3;i <= 2 * Base::FightMapWidth / 3;i++)
 	{
-		if (Up != NULL)MiniTurn[0][i] = Base::floorblock;
-		if (Down != NULL)MiniTurn[Base::FightMapWidth - 1][i] = Base::floorblock;
-		if (Left != NULL)MiniTurn[i][0] = Base::floorblock;
-		if (Right != NULL)MiniTurn[i][Base::FightMapWidth - 1] = Base::floorblock;
+		if (Up != NULL)MiniTurn[0][i] = Base::door;
+		if (Down != NULL)MiniTurn[Base::FightMapWidth - 1][i] = Base::door;
+		if (Left != NULL)MiniTurn[i][0] = Base::door;
+		if (Right != NULL)MiniTurn[i][Base::FightMapWidth - 1] = Base::door;
 	}
-	//if (isStart);
-	 if (isEnd);
+	if (EventKind == Base::start);
 	else
 	{
 		for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 32;t++)
 		{
 			int i = rand() % (Base::FightMapWidth / 2 - 1);
 			int j = rand() % (Base::FightMapWidth / 2 - 1);
+			//if (Up != NULL && i == 0)if (MiniTurn[i][j + 1] == Base::door) { i--;continue; }
+			//if (Left != NULL && j == 0)if (MiniTurn[i + 1][j] == Base::door) { i--;continue; }
 			//if (MiniTurn[i + 1][j + 1] == Base::wall)
 			//	t--;
 			//else
@@ -67,10 +74,12 @@ void FightMap::Generate()
 			MiniTurn[Base::FightMapWidth - i - 2][Base::FightMapWidth - j - 2] = Base::wall;
 			//}
 		}
-		for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 16;t++)
+		for (int t = 0;t < (Base::FightMapWidth - 2)*(Base::FightMapWidth - 2) / 32;t++)
 		{
 			int i = rand() % (Base::FightMapWidth / 2 - 1);
 			int j = rand() % (Base::FightMapWidth / 2 - 1);
+			//if (Down != NULL && i == 0)if (MiniTurn[Base::FightMapWidth - i - 1][j+1] == Base::door) { i--;continue; }
+			//if (Left != NULL && j == 0)if (MiniTurn[Base::FightMapWidth - i - 2][j] == Base::door) { i--;continue; }
 			//if (MiniTurn[Base::FightMapWidth - i - 2][j + 1] == Base::wall)
 				//t--;
 			//else
@@ -80,6 +89,15 @@ void FightMap::Generate()
 			//}
 		}
 	}
+
+	for (int i = Base::FightMapWidth / 3;i <= 2 * Base::FightMapWidth / 3;i++)
+	{
+		if (Up != NULL)MiniTurn[1][i] = Base::floorblock;
+		if (Down != NULL)MiniTurn[Base::FightMapWidth - 2][i] = Base::floorblock;
+		if (Left != NULL)MiniTurn[i][1] = Base::floorblock;
+		if (Right != NULL)MiniTurn[i][Base::FightMapWidth - 2] = Base::floorblock;
+	}
+
 	GLfloat left = (1 - Base::FightMapWidth)*Base::Block_Size / 2;
 	GLfloat right = (Base::FightMapWidth - 1)*Base::Block_Size / 2;
 	for (int i = 0;i < Base::FightMapWidth;i++)
@@ -88,8 +106,10 @@ void FightMap::Generate()
 		{
 			if (MiniTurn[i][j] == Base::wall)
 				Wall* t = new Wall(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
-			else
+			else if (MiniTurn[i][j] == Base::floorblock)
 				Floor*t = new Floor(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+			else
+				Door* t = new Door(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
 		}
 	}
 }
