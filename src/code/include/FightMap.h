@@ -4,11 +4,10 @@ class FightMap :
 	public MapUnit
 {
 private:
-	bool isStart;
-	bool isEnd;
+	
 public:
-	FightMap(GLfloat x,GLfloat y,bool s,bool e);
-	FightMap(GLfloat x, GLfloat y, bool s, bool e, MapUnit* u, MapUnit* d, MapUnit* l, MapUnit* r);
+	FightMap(GLfloat x,GLfloat y,Base::MapUnitEventKind t);
+	FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t, MapUnit* u, MapUnit* d, MapUnit* l, MapUnit* r);
 	~FightMap();
 	void Generate();
 };

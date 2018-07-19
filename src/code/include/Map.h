@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable:4996)
 #include"Wall.h"
+#include"Door.h"
 #include"Floor.h"
 #include"MapUnit.h"
 
@@ -102,6 +103,12 @@ public:
 		MapUnit* t = GetWhichMapUnit(x, y, m);
 		t->GetBlockState(x, y, n);
 		return AllBlock[m + n];
+		for (int i = m + n - 100;i < m + n + 100 && i < AllBlock.size();i++)
+		{
+			if (AllBlock[i]->IsInBlock(x, y))
+				return AllBlock[i];
+		}
+		return NULL;
 		/*for (int i = 0;i < AllBlock.size();i++)
 			if (AllBlock[i]->IsInBlock(x, y))
 				return AllBlock[i];*/
@@ -111,7 +118,7 @@ public:
 	bool IsBlockWall(GLfloat x, GLfloat y)
 	{
 		MapUnit* t = GetWhichMapUnit(x, y);
-		if (t->GetBlockState(x, y) == Base::wall)return true;
+		if (t->GetBlockState(x, y) == Base::wall|| t->GetBlockState(x, y) == Base::door)return true;
 		return false;
 	}
 	//判断该座标所在快是否为墙，时间复杂度较低

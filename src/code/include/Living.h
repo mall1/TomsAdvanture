@@ -1,5 +1,6 @@
 #pragma once
 #include"Base.h"
+#include"Weapon.h"
 class Living
 {
 protected:
@@ -13,7 +14,9 @@ protected:
 	int NowHp;
 	int MaxHp;
 
-	int Speed;
+	float Speed;
+
+	Weapon* NowWeapon;
 
 	//Base::Skill sk;//¼¼ÄÜÀ¸
 	//Base::Item it;//µÀ¾ßÀ¸
@@ -29,10 +32,23 @@ public:
 	GLfloat GetPositionX() { return PositionX; }
 	GLfloat GetPositionY() { return PositionY; }
 
+	void ChangeWeapon(Weapon* n) { NowWeapon = n; }
+	Weapon* GetNowWeapon() { return NowWeapon; }
+
+	bool isCollision(GLfloat x,GLfloat y)
+	{
+		GLfloat f = Base::ForgiveValue;
+		return ((x + f > PositionX - Width / 2) && (x - f < PositionX + Width / 2) && (y + f > PositionY - Height / 2) && (y - f < PositionY + Height / 2));
+	}
+
 	virtual void ReDraw() = 0;//ÖØ»æº¯Êý
-	virtual void MoveStep(Base::Rotate r) = 0;
-	virtual void Hurt() = 0;
-	virtual bool IsDied() = 0;//ËÀÍöÅÐ¶Ï
+	//virtual void MoveStep(Base::Rotate r) = 0;
+	void Hurt(int d)
+	{
+		NowHp -= d;
+		std::cout << "-" << d << std::endl;
+	}
+	virtual void IsDied() = 0;//ËÀÍöÅÐ¶Ï
 	Living();
 	~Living();
 };

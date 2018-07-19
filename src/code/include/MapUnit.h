@@ -1,10 +1,13 @@
 #pragma once
 #include"Base.h"
+#include"Enemy.h"
 class MapUnit
 {
 protected:
 	Base::Block MiniTurn[20][20];
-	Base::MapType TypeofMap;
+	Base::MapUnitState FightState;//before in done fight
+	Base::MapType TypeofMap;//across or fight
+	Base::MapUnitEventKind EventKind;//start end npc ...
 	GLfloat PositionX;
 	GLfloat PositionY;
 	MapUnit* Up;
@@ -13,6 +16,12 @@ protected:
 	MapUnit* Right;
 public:
 	bool IsonType(Base::MapType t) { return (TypeofMap == t); }
+
+	Base::MapUnitEventKind GetEventKind() { return EventKind; }
+
+	Base::MapUnitState GetFightState() { return FightState; }
+	void SetFightState(Base::MapUnitState t) { FightState = t; }
+
 	GLfloat GetPositionX() { return PositionX; }
 	GLfloat GetPositionY() { return PositionY; }
 	MapUnit * GetUpMap() { return Up; }
@@ -37,7 +46,7 @@ public:
 
 	Base::Block GetBlockState(GLfloat x, GLfloat y)
 	{
-		int m = (x - PositionX+Base::Block_Size*Base::FightMapWidth/2) / Base::Block_Size;
+		int m = (x - PositionX + Base::Block_Size*Base::FightMapWidth / 2) / Base::Block_Size;
 		int n = (y - PositionY + Base::Block_Size*Base::FightMapWidth / 2) / Base::Block_Size;
 		return MiniTurn[Base::FightMapWidth-n-1][m];
 	}
@@ -54,8 +63,16 @@ public:
 		return MiniTurn[Base::FightMapWidth - n - 1][m];
 	}
 
-	MapUnit(){};
-	~MapUnit(){};
+	void EnemyGenerate(int num);
+
+	void NoneEnemyJudge()
+	{
+		if (Enemy::AllEnemy.size() == 0)
+		FightState = Base::fightdone;
+	}
+
+	MapUnit();
+	~MapUnit();
 	virtual void Generate() = 0;
 };
 
