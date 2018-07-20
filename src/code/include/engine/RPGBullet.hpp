@@ -1,6 +1,8 @@
 #pragma once
-#include "bullet.h"
-#include"Tom.h"
+#include "bullet.hpp"
+#include"Game_State.hpp"
+#include "Tom.hpp"
+using namespace Game_State;
 class RPGBullet :
 	public bullet
 {
@@ -54,8 +56,8 @@ public:
 				}
 				else
 				{
-					if (Base::tom->GetPositionX() >= PositionX - BoomSize / 2 && Base::tom->GetPositionX() <= PositionX + BoomSize / 2 && Base::tom->GetPositionY() >= PositionY - BoomSize / 2 && Base::tom->GetPositionY() <= PositionY + BoomSize / 2)
-						Base::tom->Hurt(Damage);
+					if (tom->GetPositionX() >= PositionX - BoomSize / 2 && tom->GetPositionX() <= PositionX + BoomSize / 2 && tom->GetPositionY() >= PositionY - BoomSize / 2 && tom->GetPositionY() <= PositionY + BoomSize / 2)
+						tom->Hurt(Damage);
 				}
 				delete this;
 				return;
@@ -82,15 +84,15 @@ public:
 		}
 		else
 		{
-			if (Base::tom->isCollision(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
+			if (tom->isCollision(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
 			{
-				Base::tom->Hurt(Damage);
+				tom->Hurt(Damage);
 				BulletSize += Base::step;
 				//delete this;
 				return;
 			}
 		}
-		if (Base::GameMap->IsBlockWall(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
+		if (GameMap->IsBlockWall(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
 			BulletSize += Base::step;
 			//delete this;
 		else

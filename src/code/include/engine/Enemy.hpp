@@ -1,8 +1,7 @@
 #pragma once
-#include "Living.h"
-class Enemy :
-	public Living
-{
+#include "Living.hpp"
+#include "vector"
+class Enemy :public Living{
 public:
 	static std::vector<Enemy*> AllEnemy;
 	static void AllReDraw()
@@ -26,3 +25,5 @@ public:
 	~Enemy(){}
 };
 
+
+std::vector<Enemy*> Enemy::AllEnemy;

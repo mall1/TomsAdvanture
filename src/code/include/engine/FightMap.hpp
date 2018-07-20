@@ -1,5 +1,17 @@
-#include "FightMap.h"
-#include"Map.h"
+#pragma once
+#include "MapUnit.hpp"
+class FightMap :
+	public MapUnit
+{
+private:
+	
+public:
+	FightMap(GLfloat x,GLfloat y,Base::MapUnitEventKind t);
+	FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t, MapUnit* u, MapUnit* d, MapUnit* l, MapUnit* r);
+	~FightMap();
+	void Generate();
+};
+
 
 
 FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t)
@@ -12,7 +24,7 @@ FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t)
 		FightState = Base::fightdone;
 	else
 		FightState = Base::fightbefore;
-	Base::GameMap->AddToMapUnit(this);
+	//Base::GameMap->AddToMapUnit(this);
 }
 
 FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t, MapUnit * u, MapUnit * d, MapUnit * l, MapUnit * r)
@@ -29,13 +41,13 @@ FightMap::FightMap(GLfloat x, GLfloat y, Base::MapUnitEventKind t, MapUnit * u, 
 		FightState = Base::fightdone;
 	else
 		FightState = Base::fightbefore;
-	Base::GameMap->AddToMapUnit(this);
+	//Base::GameMap->AddToMapUnit(this);
 }
 
 
 FightMap::~FightMap()
 {
-	Base::GameMap->DeleteMapUnit(this);
+	//Base::GameMap->DeleteMapUnit(this);
 }
 
 void FightMap::Generate()
@@ -105,11 +117,21 @@ void FightMap::Generate()
 		for (int j = 0;j < Base::FightMapWidth;j++)
 		{
 			if (MiniTurn[i][j] == Base::wall)
+			{
 				Wall* t = new Wall(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+				AllBlock.push_back(t);
+			}
 			else if (MiniTurn[i][j] == Base::floorblock)
+			{
 				Floor*t = new Floor(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+				AllBlock.push_back(t);
+			}
 			else
+			{
 				Door* t = new Door(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+				AllBlock.push_back(t);
+			}
 		}
 	}
 }
+

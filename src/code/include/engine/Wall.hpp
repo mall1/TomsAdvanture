@@ -1,6 +1,6 @@
 #pragma once
-#include"BaseWall.h"
-class Map;
+#include"BaseWall.hpp"
+
 class Wall:
 	public BaseWall
 {
@@ -44,4 +44,27 @@ public:
 	Wall(GLfloat x, GLfloat y);
 	~Wall();
 };
+Wall::Wall()
+{
+	BlockName = Base::Block::wall;
+	CanDestroy = false;
+	//Map::AddToWall(this);
+}
+
+Wall::Wall(GLfloat x, GLfloat y)
+{
+	BlockName = Base::Block::wall;
+	PositionX = x;
+	PositionY = y;
+	CanDestroy = false;
+	//Map::AddToWall(this);
+   // Base::GameMap->AddToBlock(this);
+}
+
+
+Wall::~Wall()
+{
+     //Base::GameMap->DeleteBlock(this);
+}
+
 

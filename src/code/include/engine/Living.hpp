@@ -1,6 +1,6 @@
 #pragma once
-#include"Base.h"
-#include"Weapon.h"
+#include"Base.hpp"
+#include"Weapon.hpp"
 class Living
 {
 protected:
@@ -18,12 +18,12 @@ protected:
 
 	Weapon* NowWeapon;
 
-	//Base::Skill sk;//¼¼ÄÜÀ¸
-	//Base::Item it;//µÀ¾ßÀ¸
+	//Base::Skill sk;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Base::Item it;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	//std::vector<Base::State> AllState;//×´Ì¬
 
-	//int AttackAngle;//µ¯µÀÆ«½Ç
+	//int AttackAngle;//ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
 
 public:
 
@@ -31,6 +31,10 @@ public:
 	void SetPositionY(GLfloat y) { PositionY = y; }
 	GLfloat GetPositionX() { return PositionX; }
 	GLfloat GetPositionY() { return PositionY; }
+
+	float GetSpeed() { return Speed; }
+	GLfloat GetWidth() { return Width; }
+	GLfloat GetHeight() { return Height; }
 
 	void ChangeWeapon(Weapon* n) { NowWeapon = n; }
 	Weapon* GetNowWeapon() { return NowWeapon; }
@@ -41,15 +45,16 @@ public:
 		return ((x + f > PositionX - Width / 2) && (x - f < PositionX + Width / 2) && (y + f > PositionY - Height / 2) && (y - f < PositionY + Height / 2));
 	}
 
-	virtual void ReDraw() = 0;//ÖØ»æº¯Êý
+	virtual void ReDraw() = 0;//ï¿½Ø»æº¯ï¿½ï¿½
 	//virtual void MoveStep(Base::Rotate r) = 0;
 	void Hurt(int d)
 	{
 		NowHp -= d;
 		std::cout << "-" << d << std::endl;
 	}
-	virtual void IsDied() = 0;//ËÀÍöÅÐ¶Ï
-	Living();
-	~Living();
+	virtual void IsDied() = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+	Living(){}
+	~Living(){}
 };
+
 

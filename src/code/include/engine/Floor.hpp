@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseWall.h"
+#include "BaseWall.hpp"
 class Floor :
 	public BaseWall
 {
@@ -48,4 +48,20 @@ public:
 		glEnd();*/
 	}
 };
+
+Floor::Floor(GLfloat x, GLfloat y)
+{
+	BlockName = Base::Block::floorblock;
+	PositionX = x;
+	PositionY = y;
+	CanDestroy = false;
+	//Map::AddToFloor(this);
+	//Base::GameMap->AddToBlock(this);
+}
+
+Floor::~Floor()
+{
+	//Base::GameMap->DeleteBlock(this);
+}
+
 

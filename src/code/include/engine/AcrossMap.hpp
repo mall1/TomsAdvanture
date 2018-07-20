@@ -1,10 +1,16 @@
-#include "AcrossMap.h"
-#include "Map.h"
-
-
-AcrossMap::AcrossMap()
+#pragma once
+#include "MapUnit.hpp"
+class AcrossMap :
+	public MapUnit
 {
-}
+private:
+	bool isUpDown;
+public:
+	AcrossMap(){}
+	AcrossMap(bool i, MapUnit* ul, MapUnit* dr);
+    ~AcrossMap();
+	void Generate();
+};
 
 AcrossMap::AcrossMap(bool i, MapUnit * ul, MapUnit * dr)
 {
@@ -42,13 +48,13 @@ AcrossMap::AcrossMap(bool i, MapUnit * ul, MapUnit * dr)
 	}
 	PositionX = (ul->GetPositionX() + dr->GetPositionX()) / 2;
 	PositionY = (ul->GetPositionY() + dr->GetPositionY()) / 2;
-	Base::GameMap->AddToMapUnit(this);
+	//Base::GameMap->AddToMapUnit(this);
 }
 
 
 AcrossMap::~AcrossMap()
 {
-	Base::GameMap->DeleteMapUnit(this);
+	//Base::GameMap->DeleteMapUnit(this);
 }
 
 void AcrossMap::Generate()
@@ -60,10 +66,16 @@ void AcrossMap::Generate()
 		for (int i = 0;i < Base::FightMapWidth;i++)
 			for (int j = Base::FightMapWidth / 3 - 1;j < 2 * Base::FightMapWidth / 3 + 2;j++)
 			{
-				if(MiniTurn[i][j]==Base::wall)
-					Wall* t= new Wall(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+				if (MiniTurn[i][j] == Base::wall)
+				{
+					Wall* t = new Wall(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+					AllBlock.push_back(t);
+				}
 				else
+				{
 					Floor*t = new Floor(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+					AllBlock.push_back(t);
+				}
 			}
 	}
 	else
@@ -72,9 +84,15 @@ void AcrossMap::Generate()
 			for (int j = 0;j < Base::FightMapWidth;j++)
 			{
 				if (MiniTurn[i][j] == Base::wall)
+				{
 					Wall* t = new Wall(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+					AllBlock.push_back(t);
+				}
 				else
+				{
 					Floor*t = new Floor(left + Base::Block_Size*(GLfloat)j + PositionX, right - Base::Block_Size*(GLfloat)i + PositionY);
+					AllBlock.push_back(t);
+				}
 			}
 	}
 }

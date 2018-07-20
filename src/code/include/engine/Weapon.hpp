@@ -1,5 +1,5 @@
 #pragma once
-#include"Base.h"
+#include"Base.hpp"
 class Weapon
 {
 protected:
@@ -46,8 +46,10 @@ public:
 		case 1:weaponskill = Base::b1;
 		}
 	}
-	~Weapon() {};
+    ~Weapon() {}
 	virtual void ReDraw() = 0;
 	virtual void Shoot(GLfloat x, GLfloat y, int m, int n,bool i) = 0;
 };
 
+
+std::vector<Weapon*> Weapon::AllWeapon;

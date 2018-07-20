@@ -1,7 +1,8 @@
 #pragma once
-#include "Enemy.h"
-#include"HandGun.h"
-#include"RPG.h"
+#include "Enemy.hpp"
+#include"Game_State.hpp"
+#include"RPG.hpp"
+using namespace Game_State;
 class HandGunSoldier :
 	public Enemy
 {
@@ -47,7 +48,7 @@ public:
 	}
 	void MoveStep(GLfloat fx, GLfloat fy)
 	{
-		if (Base::tom->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || Base::tom->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || Base::tom->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy) || Base::tom->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy))
+		if (tom->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || tom->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || tom->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy) || tom->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy))
 			return;
 		for (int i = 0;i < AllEnemy.size();i++)
 		{
@@ -56,17 +57,17 @@ public:
 			else if (AllEnemy[i]->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || AllEnemy[i]->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY + Speed * Base::step*fy) || AllEnemy[i]->isCollision(-Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy) || AllEnemy[i]->isCollision(Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY + Speed * Base::step*fy))
 				return;
 		}
-		BaseWall *tl = Base::GameMap->GetWhichBlock(-Width / 2 + PositionX, Height / 2 + PositionY + Speed * Base::step*fy);
-		BaseWall *tr = Base::GameMap->GetWhichBlock(Width / 2 + PositionX, Height / 2 + PositionY + Speed * Base::step*fy);
-		BaseWall *dl = Base::GameMap->GetWhichBlock(-Width / 2 + PositionX, -Height / 2 + PositionY + Speed * Base::step*fy);
-		BaseWall *dr = Base::GameMap->GetWhichBlock(Width / 2 + PositionX, -Height / 2 + PositionY + Speed * Base::step*fy);
+		BaseWall *tl = GameMap->GetWhichBlock(-Width / 2 + PositionX, Height / 2 + PositionY + Speed * Base::step*fy);
+		BaseWall *tr = GameMap->GetWhichBlock(Width / 2 + PositionX, Height / 2 + PositionY + Speed * Base::step*fy);
+		BaseWall *dl = GameMap->GetWhichBlock(-Width / 2 + PositionX, -Height / 2 + PositionY + Speed * Base::step*fy);
+		BaseWall *dr = GameMap->GetWhichBlock(Width / 2 + PositionX, -Height / 2 + PositionY + Speed * Base::step*fy);
 		if (tl->IsOnType(Base::wall) || tr->IsOnType(Base::wall)||tl->IsOnType(Base::door) || tr->IsOnType(Base::door)) PositionY = tl->GetGLfloatPositionY() - Base::Block_Size / 2 - Height / 2 - Base::ForgiveValue;
 		else if(dl->IsOnType(Base::wall) || dr->IsOnType(Base::wall)|| dl->IsOnType(Base::door) || dr->IsOnType(Base::door))PositionY = dl->GetGLfloatPositionY() + Base::Block_Size / 2 + Height / 2 + Base::ForgiveValue;
 		else PositionY += Speed * Base::step*fy;
-		BaseWall *tu = Base::GameMap->GetWhichBlock(-Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY);
-		BaseWall *td = Base::GameMap->GetWhichBlock(-Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY);
-		BaseWall *lu = Base::GameMap->GetWhichBlock(Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY);
-		BaseWall *ld = Base::GameMap->GetWhichBlock(Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY);
+		BaseWall *tu = GameMap->GetWhichBlock(-Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY);
+		BaseWall *td = GameMap->GetWhichBlock(-Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY);
+		BaseWall *lu = GameMap->GetWhichBlock(Width / 2 + PositionX + Speed * Base::step*fx, Height / 2 + PositionY);
+		BaseWall *ld = GameMap->GetWhichBlock(Width / 2 + PositionX + Speed * Base::step*fx, -Height / 2 + PositionY);
 		if (tu->IsOnType(Base::wall) || td->IsOnType(Base::wall)|| tu->IsOnType(Base::door) || td->IsOnType(Base::door)) PositionX = tu->GetGLfloatPositionX() + Base::Block_Size / 2 + Width / 2 + Base::ForgiveValue;
 		else if (lu->IsOnType(Base::wall) || ld->IsOnType(Base::wall)|| lu->IsOnType(Base::door) || ld->IsOnType(Base::door)) PositionX = lu->GetGLfloatPositionX() - Base::Block_Size / 2 - Width / 2 - Base::ForgiveValue;
 		else PositionX += Speed * Base::step*fx;
@@ -77,8 +78,8 @@ public:
 	}
 	void AIJudge()
 	{
-		GLfloat x = Base::tom->GetPositionX() - PositionX;
-		GLfloat y = Base::tom->GetPositionY() - PositionY;
+		GLfloat x = tom->GetPositionX() - PositionX;
+		GLfloat y = tom->GetPositionY() - PositionY;
 		float fx = x / sqrt(x * x + y * y);
 		float fy = y / sqrt(x * x + y * y);
 		float tx = PositionX, ty = PositionY;
@@ -86,7 +87,7 @@ public:
 		{
 			tx += fx * Base::Block_Size / 2;
 			ty += fy * Base::Block_Size / 2;
-			if (Base::GameMap->IsBlockWall(tx,ty))
+			if (GameMap->IsBlockWall(tx,ty))
 			{
 				if (Base::CounterAll % 200 == 0)
 					MoveRotate = rand() % 2;

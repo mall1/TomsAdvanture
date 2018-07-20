@@ -1,7 +1,5 @@
 #pragma once
-#include"Base.h"
-
-
+#include "Base.hpp"
 
 class BaseWall
 {
@@ -9,7 +7,7 @@ protected:
 	Base::Block BlockName;
 	GLfloat PositionX;
 	GLfloat PositionY;
-	bool CanDestroy;//ÊÇ·ñÄÜ±»´Ý»Ù
+	bool CanDestroy;//ï¿½Ç·ï¿½ï¿½Ü±ï¿½ï¿½Ý»ï¿½
 public:
 	void SetPositionX(GLfloat x) { PositionX = x; }
 	void SetPositionX(int x) { PositionX = 2 * x / Base::Window_Width; }
@@ -34,9 +32,9 @@ public:
 		GLfloat a = 2.0 * x / Base::Window_Width;
 		GLfloat b = 2.0 * y / Base::Window_Height;
 		return IsInBlock(a, b);
-	}*/
-	//ÖÐÐÄÎª×ø±êÔ­µã
-	BaseWall() {};
-	~BaseWall() {};
+    }*/
+    BaseWall() {}
+    ~BaseWall() {}
 };
+
 

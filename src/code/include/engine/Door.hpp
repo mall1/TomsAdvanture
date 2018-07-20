@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseWall.h"
+#include "BaseWall.hpp"
 class Door :
 	public BaseWall
 {
@@ -16,8 +16,22 @@ public:
 		glVertex2f(PositionX - R, PositionY + R);
 		glEnd();
 	}
-	Door();
+	Door(){}
 	Door(GLfloat x, GLfloat y);
-	~Door();
+	~Door(){}
 };
+
+
+
+Door::Door(GLfloat x, GLfloat y)
+{
+	BlockName = Base::Block::door;
+	PositionX = x;
+	PositionY = y;
+	CanDestroy = false;
+	//Map::AddToWall(this);
+	//Base::GameMap->AddToBlock(this);
+}
+
+
 

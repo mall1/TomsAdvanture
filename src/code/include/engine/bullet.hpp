@@ -1,25 +1,24 @@
 #pragma once
-#include"Base.h"
-#include"Map.h"
+#include"Base.hpp"
 class bullet
 {
 protected:
 	GLfloat PositionX;
 	GLfloat PositionY;
-	//float BulletAngle;//×Óµ¯ÔË¶¯½Ç¶Ètan
+	//float BulletAngle;//ï¿½Óµï¿½ï¿½Ë¶ï¿½ï¿½Ç¶ï¿½tan
 	int AngleX;
 	int AngleY;
 	int countjump;
 	float Speed;
-	int Damage;//ÉËº¦
+	int Damage;//ï¿½Ëºï¿½
 	GLfloat BulletSize;
 	bool isEnemy;
 	
 public:
 	static std::vector<bullet*>AllBullet;
-	void JumpInfinite()
+	/*void JumpInfinite()
 	{
-		if (Base::GameMap->IsBlockWall(PositionX, PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
+        if ((Map*)Base::GameMap->IsBlockWall(PositionX, PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
 			AngleY = -AngleY;
 		else if (Base::GameMap->IsBlockWall(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY))
 			AngleX = -AngleX;
@@ -55,14 +54,14 @@ public:
 			PositionX += Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY));
 			PositionY += Base::step*Speed *AngleY / (abs(AngleX) + abs(AngleY));
 		}
-	}
+	}*/
 	virtual void MoveJudge()
 	{
 		//JumpInfinite();
-		JumpTwice();
+		//JumpTwice();
 		//Normal();
 	}
-	//×Óµ¯ÔË¶¯ÅÐ¶Ï£º×²Ç½delete£¬×²ÈËdelete
+	//ï¿½Óµï¿½ï¿½Ë¶ï¿½ï¿½Ð¶Ï£ï¿½×²Ç½deleteï¿½ï¿½×²ï¿½ï¿½delete
 	virtual void ReDraw()
 	{
 		float R = BulletSize / 2;
@@ -87,4 +86,6 @@ public:
 	//bullet(GLfloat x,GLfloat y,int b,int d){}
 	~bullet(){}
 };
+
+std::vector<bullet*> bullet::AllBullet;
 

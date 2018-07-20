@@ -1,7 +1,9 @@
 #pragma once
-#include "bullet.h"
-#include"Tom.h"
-#include "Enemy.h"
+#include "bullet.hpp"
+#include"Game_State.hpp"
+#include"Tom.hpp"
+#include "Enemy.hpp"
+using namespace Game_State;
 class NormalBullet :
 	public bullet
 {
@@ -52,14 +54,14 @@ public:
 		}
 		else
 		{
-			if (Base::tom->isCollision(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
+			if (tom->isCollision(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
 			{
-				Base::tom->Hurt(Damage);
+				tom->Hurt(Damage);
 				delete this;
 				return;
 			}
 		}
-		if (Base::GameMap->IsBlockWall(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
+		if (GameMap->IsBlockWall(PositionX + Base::step*Speed*AngleX / (abs(AngleX) + abs(AngleY)), PositionY + Base::step*Speed * AngleY / (abs(AngleX) + abs(AngleY))))
 			delete this;
 		else
 		{

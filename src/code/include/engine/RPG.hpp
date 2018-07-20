@@ -1,6 +1,6 @@
 #pragma once
-#include "Weapon.h"
-#include"RPGBullet.h"
+#include "Weapon.hpp"
+#include"RPGBullet.hpp"
 class RPG :
 	public Weapon
 {

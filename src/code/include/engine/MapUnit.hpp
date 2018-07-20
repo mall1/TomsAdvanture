@@ -1,10 +1,12 @@
 #pragma once
-#include"Base.h"
-#include"Enemy.h"
+#include "Base.hpp"
+#include"Wall.hpp"
+#include"Door.hpp"
+#include"Floor.hpp"
+#include "MapUnit.hpp"
 class MapUnit
 {
 protected:
-	Base::Block MiniTurn[20][20];
 	Base::MapUnitState FightState;//before in done fight
 	Base::MapType TypeofMap;//across or fight
 	Base::MapUnitEventKind EventKind;//start end npc ...
@@ -15,6 +17,28 @@ protected:
 	MapUnit* Left;
 	MapUnit* Right;
 public:
+	Base::Block MiniTurn[20][20];
+	std::vector<BaseWall*> AllBlock;
+
+	BaseWall * ForeachBlock(int i)
+	{
+		if (i >= AllBlock.size())return NULL;
+		return AllBlock[i];
+	}
+	void AddToBlock(BaseWall* t) { AllBlock.push_back(t); }
+	void DeleteAllBlock(BaseWall*t)
+	{
+		std::vector<BaseWall*>::iterator it;
+		for (it = AllBlock.begin();it != AllBlock.end();it++)
+		{
+			if (*it == t)
+			{
+				AllBlock.erase(it);
+				break;
+			}
+		}
+	}
+
 	bool IsonType(Base::MapType t) { return (TypeofMap == t); }
 
 	Base::MapUnitEventKind GetEventKind() { return EventKind; }
@@ -33,6 +57,12 @@ public:
 	MapUnit * GetRightMap() { return Right; }
 	void SetRightMap(MapUnit* t) { Right = t; }
 
+	void ReDraw()
+	{
+		for (int i = 0;i < AllBlock.size();i++)
+			AllBlock[i]->ReDraw();
+	}
+
 	bool IsInMapUnit(GLfloat x, GLfloat y)
 	{
 		return x >= PositionX - Base::Block_Size*Base::FightMapWidth / 2 && x <= PositionX + Base::Block_Size*Base::FightMapWidth / 2 && y >= PositionY - Base::Block_Size*Base::FightMapWidth / 2 && y <= PositionY + Base::Block_Size*Base::FightMapWidth / 2;
@@ -50,8 +80,9 @@ public:
 		int n = (y - PositionY + Base::Block_Size*Base::FightMapWidth / 2) / Base::Block_Size;
 		return MiniTurn[Base::FightMapWidth-n-1][m];
 	}
-	Base::Block GetBlockState(GLfloat x, GLfloat y,int &node)
+	BaseWall* GetBlock(GLfloat x, GLfloat y)
 	{
+		int node = 1;
 		int m = (x - PositionX + Base::Block_Size*Base::FightMapWidth / 2) / Base::Block_Size;
 		int n = (y - PositionY + Base::Block_Size*Base::FightMapWidth / 2) / Base::Block_Size;
 		if (TypeofMap == Base::fightmap)
@@ -60,19 +91,52 @@ public:
 			node = (Base::FightMapWidth - n - Base::FightMapWidth / 3)*Base::FightMapWidth + m + 1;
 		else
 			node = (Base::FightMapWidth - n - 1)*(Base::FightMapWidth - 2 * (Base::FightMapWidth / 3) + 2) + m - Base::FightMapWidth / 3 + 2;
-		return MiniTurn[Base::FightMapWidth - n - 1][m];
+		return AllBlock[node-1];
 	}
 
 	void EnemyGenerate(int num);
 
-	void NoneEnemyJudge()
+	/*void NoneEnemyJudge()
 	{
 		if (Enemy::AllEnemy.size() == 0)
 		FightState = Base::fightdone;
 	}
-
-	MapUnit();
-	~MapUnit();
+*/
+	MapUnit(){}
+	~MapUnit(){}
 	virtual void Generate() = 0;
 };
+
+//std::vector<BaseWall*> MapUnit::AllBlock;
+
+
+void MapUnit::EnemyGenerate(int num)
+{
+	/*int i = rand() % Base::FightMapWidth;
+	int j = rand() % Base::FightMapWidth;
+	for (int c = 0;c < num;c++)
+	{
+		while (MiniTurn[i][j] != Base::floorblock)
+		{
+			i = rand() % Base::FightMapWidth;
+			j = rand() % Base::FightMapWidth;
+		}
+		MiniTurn[i][j] = Base::BlockLimit;
+	}
+	for (i = 0;i < Base::FightMapWidth;i++)
+	{
+		for (j = 0;j < Base::FightMapWidth;j++)
+		{
+			if (MiniTurn[i][j] == Base::BlockLimit)
+			{
+				MiniTurn[i][j] = Base::floorblock;
+				if(EventKind==Base::end)
+					MachineArmor* t=new MachineArmor(PositionX - Base::Block_Size*Base::FightMapWidth / 2 + Base::Block_Size / 2 + i * Base::Block_Size, PositionY + Base::Block_Size*Base::FightMapWidth / 2 - Base::Block_Size / 2 - j * Base::Block_Size);
+				else
+				HandGunSoldier* t = new HandGunSoldier(PositionX - Base::Block_Size*Base::FightMapWidth / 2 + Base::Block_Size / 2 + i * Base::Block_Size, PositionY + Base::Block_Size*Base::FightMapWidth / 2 - Base::Block_Size / 2 - j * Base::Block_Size);
+			}
+		}
+	}*/
+}
+
 
