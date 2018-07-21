@@ -36,8 +36,8 @@ public:
 		{
             double x = PositionX + Width * t->GetPositionX() / (Size*Base::Block_Size*Base::FightMapWidth);
             double y = PositionY + Height * t->GetPositionY() / (Size*Base::Block_Size*Base::FightMapWidth);
-			x += Game_State::tom->GetNowMapUnit()->GetPositionX();
-			y += Game_State::tom->GetNowMapUnit()->GetPositionY();
+			x += Game_State::tom->GetNowMapUnit()->GetPositionX()+Base::BaseX;
+			y += Game_State::tom->GetNowMapUnit()->GetPositionY()+Base::BaseY;
 			count++;
 			if (t->IsonType(Base::fightmap))
 			{
@@ -70,8 +70,8 @@ public:
 		t = Game_State::tom->GetNowMapUnit();
         double x = PositionX + Width * t->GetPositionX() / (Size*Base::Block_Size*Base::FightMapWidth);
         double y = PositionY + Height * t->GetPositionY() / (Size*Base::Block_Size*Base::FightMapWidth);
-		x += Game_State::tom->GetNowMapUnit()->GetPositionX();
-		y += Game_State::tom->GetNowMapUnit()->GetPositionY();
+		x += Game_State::tom->GetNowMapUnit()->GetPositionX()+Base::BaseX;
+		y += Game_State::tom->GetNowMapUnit()->GetPositionY()+Base::BaseY;
 		if (t->IsonType(Base::fightmap))
         {
             Graphic::gameDrawRect(x-MapUnitSize / 2, x+MapUnitSize / 2, y+MapUnitSize / 2, y-MapUnitSize / 2,0,0xff000000);

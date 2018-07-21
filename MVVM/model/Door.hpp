@@ -7,7 +7,9 @@ public:
 	void ReDraw()
 	{
         float R = Base::Block_Size / 2;
-        Graphic::gameDrawRect(PositionX-R, PositionX+R, PositionY+R, PositionY-R, 0, 0xffff0000);
+        double x=PositionX+Base::BaseX;
+        double y=PositionY+BaSE::BaseY;
+        Graphic::gameDrawRect(x-R, x+R, y+R, y-R, 0, 0xffff0000);
 	}
 	Door(){}
     Door(double x, double y);

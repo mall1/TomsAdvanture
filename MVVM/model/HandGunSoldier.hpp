@@ -39,7 +39,9 @@ public:
 	void ReDraw()
 	{
         float R = Height / 2;
-        Graphic::gameDrawTom(PositionX, PositionY, R, 0xff00ffff);
+        double x=PositionX+Base::BaseX;
+        double y=PositionY+BaSE::BaseY;
+        Graphic::gameDrawTom(x, y, R, 0xff00ffff);
 	}
     void MoveStep(double fx, double fy)
 	{

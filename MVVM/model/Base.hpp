@@ -8,6 +8,9 @@
 namespace Base{
     int Window_Width=0;
     int Window_Height=0;
+    
+    double BaseX;
+    double BaseY;
 
     int CounterAll=0;
     int Clk=1000;

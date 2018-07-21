@@ -28,10 +28,12 @@ public:
 	void ReDraw()
 	{
         float R = BulletSize / 2;
+        double x=PositionX+Base::BaseX;
+        double y=PositionY+BaSE::BaseY;
         if (!isEnemy)
-            Graphic::gameDrawTom(PositionX, PositionY,R,0xffffffff);
+            Graphic::gameDrawTom(x, y,R,0xffffffff);
         else
-            Graphic::gameDrawTom(PositionX, PositionY,R,0xff000000);
+            Graphic::gameDrawTom(x, y,R,0xff000000);
 	}
 	void MoveJudge()
 	{

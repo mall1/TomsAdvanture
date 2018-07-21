@@ -118,22 +118,38 @@ void MoveStep(Base::Rotate r)
 			tl = GameMap->GetWhichBlock(-tom->GetWidth() / 2 + tom->GetPositionX(), tom->GetHeight() / 2 + tom->GetPositionY() + tom->GetSpeed() * Base::step);
 			tr = GameMap->GetWhichBlock(tom->GetWidth() / 2 + tom->GetPositionX(), tom->GetHeight() / 2 + tom->GetPositionY() + tom->GetSpeed() * Base::step);
             if (tl->IsOnType(Base::wall) || tr->IsOnType(Base::wall)) tom->SetPositionY(tl->GetdoublePositionY() - Base::Block_Size / 2 - tom->GetHeight() / 2 - Base::ForgiveValue);
-            else if (tl->IsOnType(Base::door) || tr->IsOnType(Base::door)) { tom->SetPositionY(tl->GetdoublePositionY() + Base::Block_Size / 2 + tom->GetHeight() / 2 + Base::ForgiveValue); tom->ChangeMapUnit(tom->GetNowMapUnit()->GetUpMap());EnemyGenerate(tom->GetNowMapUnit()->GetUpMap()); }
+            else if (tl->IsOnType(Base::door) || tr->IsOnType(Base::door))
+			 { 
+			 tom->SetPositionY(tl->GetdoublePositionY() + Base::Block_Size / 2 + tom->GetHeight() / 2 + Base::ForgiveValue); 
+			 tom->ChangeMapUnit(tom->GetNowMapUnit()->GetUpMap());
+			 EnemyGenerate(tom->GetNowMapUnit()->GetUpMap()); 
+			 Base::BaseY -= Base::FightMapWidth*Base::Block_Size;
+			 }
 			else tom->SetPositionY(tom->GetPositionY() + tom->GetSpeed() * Base::step);
 			break;
 		case Base::down:
 			tl = GameMap->GetWhichBlock(-tom->GetWidth() / 2 + tom->GetPositionX(), -tom->GetHeight() / 2 + tom->GetPositionY() - tom->GetSpeed() * Base::step);
 			tr = GameMap->GetWhichBlock(tom->GetWidth() / 2 + tom->GetPositionX(), -tom->GetHeight() / 2 + tom->GetPositionY() - tom->GetSpeed() * Base::step);
             if (tl->IsOnType(Base::wall) || tr->IsOnType(Base::wall)) tom->SetPositionY(tl->GetdoublePositionY() + Base::Block_Size / 2 + tom->GetHeight() / 2 + Base::ForgiveValue);
-            else if (tl->IsOnType(Base::door) || tr->IsOnType(Base::door)) { tom->SetPositionY(tl->GetdoublePositionY() - Base::Block_Size / 2 - tom->GetHeight() / 2 - Base::ForgiveValue);tom->ChangeMapUnit(tom->GetNowMapUnit()->GetDownMap());EnemyGenerate(tom->GetNowMapUnit()->GetDownMap());}
+            else if (tl->IsOnType(Base::door) || tr->IsOnType(Base::door)) 
+			{ 
+			tom->SetPositionY(tl->GetdoublePositionY() - Base::Block_Size / 2 - tom->GetHeight() / 2 - Base::ForgiveValue);
+			tom->ChangeMapUnit(tom->GetNowMapUnit()->GetDownMap());
+			EnemyGenerate(tom->GetNowMapUnit()->GetDownMap());
+			Base::BaseY += Base::FightMapWidth*Base::Block_Size;
+			}
 			else tom->SetPositionY(tom->GetPositionY() - tom->GetSpeed() * Base::step);
 			break;
 		case Base::left:
 			tu = GameMap->GetWhichBlock(-tom->GetWidth() / 2 + tom->GetPositionX() - tom->GetSpeed() * Base::step, tom->GetHeight() / 2 + tom->GetPositionY());
 			td = GameMap->GetWhichBlock(-tom->GetWidth() / 2 + tom->GetPositionX() - tom->GetSpeed() * Base::step, -tom->GetHeight() / 2 + tom->GetPositionY());
             if (tu->IsOnType(Base::wall) || td->IsOnType(Base::wall))tom->SetPositionX(tu->GetdoublePositionX() + Base::Block_Size / 2 + tom->GetWidth() / 2 + Base::ForgiveValue);
-			else if (tu->IsOnType(Base::door) || td->IsOnType(Base::door)) {
-                tom->SetPositionX(tu->GetdoublePositionX() - Base::Block_Size / 2 - tom->GetWidth() / 2 - Base::ForgiveValue); tom->ChangeMapUnit(tom->GetNowMapUnit()->GetLeftMap());EnemyGenerate(tom->GetNowMapUnit()->GetLeftMap());
+			else if (tu->IsOnType(Base::door) || td->IsOnType(Base::door))
+			 {
+                tom->SetPositionX(tu->GetdoublePositionX() - Base::Block_Size / 2 - tom->GetWidth() / 2 - Base::ForgiveValue);
+				 tom->ChangeMapUnit(tom->GetNowMapUnit()->GetLeftMap());
+				 EnemyGenerate(tom->GetNowMapUnit()->GetLeftMap());
+				 Base::BaseX += Base::FightMapWidth*Base::Block_Size;
 			}
 			else tom->SetPositionX(tom->GetPositionX() - tom->GetSpeed() * Base::step);
 			break;
@@ -141,8 +157,12 @@ void MoveStep(Base::Rotate r)
 			tu = GameMap->GetWhichBlock(tom->GetWidth() / 2 + tom->GetPositionX() + tom->GetSpeed() * Base::step, tom->GetHeight() / 2 + tom->GetPositionY());
 			td = GameMap->GetWhichBlock(tom->GetWidth() / 2 + tom->GetPositionX() + tom->GetSpeed() * Base::step, -tom->GetHeight() / 2 + tom->GetPositionY());
             if (tu->IsOnType(Base::wall) || td->IsOnType(Base::wall)) tom->SetPositionX(tu->GetdoublePositionX() - Base::Block_Size / 2 - tom->GetWidth() / 2 - Base::ForgiveValue);
-			else if (tu->IsOnType(Base::door) || td->IsOnType(Base::door)) {
-                tom->SetPositionX(tu->GetdoublePositionX() + Base::Block_Size / 2 + tom->GetWidth() / 2 + Base::ForgiveValue); tom->ChangeMapUnit(tom->GetNowMapUnit()->GetRightMap());EnemyGenerate(tom->GetNowMapUnit()->GetRightMap());
+			else if (tu->IsOnType(Base::door) || td->IsOnType(Base::door)) 
+			{
+                tom->SetPositionX(tu->GetdoublePositionX() + Base::Block_Size / 2 + tom->GetWidth() / 2 + Base::ForgiveValue);
+				 tom->ChangeMapUnit(tom->GetNowMapUnit()->GetRightMap());
+				 EnemyGenerate(tom->GetNowMapUnit()->GetRightMap());
+				 Base::BaseX -= Base::FightMapWidth*Base::Block_Size;
 			}
 			else tom->SetPositionX(tom->GetPositionX() + tom->GetSpeed() * Base::step);
 			break;
@@ -153,10 +173,20 @@ void MoveStep(Base::Rotate r)
 
 void TomReDraw()
 {
-    Graphic::gameDrawRect(tom->GetPositionX() - tom->GetWidth() / 2,
-                          tom->GetPositionX() + tom->GetWidth() / 2,
-                          tom->GetPositionY() + tom->GetHeight() / 2 + 0.05,
-                          tom->GetPositionY() + tom->GetHeight() / 2 + 0.02,
+    MapUnit*t = GameMap->GetWhichMapUnit(tom->GetPositionX(), tom->GetPositionY());
+	if (tom->GetNowMapUnit() != t)
+	{
+		
+        //glTranslatef(-t->GetPositionX() + tom->GetNowMapUnit()->GetPositionX(), -t->GetPositionY() + tom->GetNowMapUnit()->GetPositionY(), 0);
+        //!!!!what's the fuck!!!!!!!!!!!!!!!
+		tom->SetNowMapUnit(t);
+	}
+	double x = tom->GetPositionX() + Base::BaseX;
+	double y = tom->GetPositionY() + Base::BaseY;
+    Graphic::gameDrawRect(x - tom->GetWidth() / 2,
+                          x + tom->GetWidth() / 2,
+                          y + tom->GetHeight() / 2 + 0.05,
+                          y + tom->GetHeight() / 2 + 0.02,
                           0,
                           0xffffffff);
 	/*glBegin(GL_POLYGON);
@@ -166,16 +196,10 @@ void TomReDraw()
 	glVertex2f(tom->GetPositionX() - tom->GetWidth() / 2 + tom->GetWidth() * 1.0*NowHp / MaxHp, tom->GetPositionY() + tom->GetHeight() / 2 + 0.05);
 	glVertex2f(tom->GetPositionX() - tom->GetWidth() / 2 + tom->GetWidth() * 1.0*NowHp / MaxHp, tom->GetPositionY() + tom->GetHeight() / 2 + 0.02);
 	glEnd();*/
-	MapUnit*t = GameMap->GetWhichMapUnit(tom->GetPositionX(), tom->GetPositionY());
-	if (tom->GetNowMapUnit() != t)
-	{
-        //glTranslatef(-t->GetPositionX() + tom->GetNowMapUnit()->GetPositionX(), -t->GetPositionY() + tom->GetNowMapUnit()->GetPositionY(), 0);
-        //!!!!what's the fuck!!!!!!!!!!!!!!!
-		tom->SetNowMapUnit(t);
-	}
+	
 
 	float R = tom->GetHeight() / 2;
-    Graphic::gameDrawTom(tom->GetPositionX(),tom->GetPositionY(),R,0xff000000);
+    Graphic::gameDrawTom(x,y,R,0xff000000);
 }
 
 void display()
