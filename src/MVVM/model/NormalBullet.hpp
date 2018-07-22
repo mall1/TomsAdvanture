@@ -8,7 +8,7 @@ class NormalBullet :
 	public bullet
 {
 public:
-	NormalBullet(GLfloat x, GLfloat y, int x1, int y1, int d,bool i)
+    NormalBullet(double x, double y, int x1, int y1, int d,bool i)
 	{
 		PositionX = x;PositionY = y;AngleX = x1;AngleY = y1;Damage = d;BulletSize = Base::Block_Size / 2;Speed = 2;countjump = 3;isEnemy = i;
 		AllBullet.push_back(this);
@@ -27,16 +27,13 @@ public:
 	}
 	void ReDraw()
 	{
-		float R = BulletSize / 2;
-		float Pi = 3.14159;
-		glBegin(GL_POLYGON);
-		if (!isEnemy)
-			glColor3f(1, 1, 1);
-		else
-			glColor3f(0, 0, 0);
-		for (int i = 0;i < 10;i++)
-			glVertex2f(PositionX + R * cos(2 * Pi / 10 * i), PositionY + R * sin(2 * Pi / 10 * i));
-		glEnd();
+        float R = BulletSize / 2;
+        double x=PositionX+Base::BaseX;
+        double y=PositionY+Base::BaseY;
+        if (!isEnemy)
+            Graphic::gameDrawTom(x, y,R,0xffffffff);
+        else
+            Graphic::gameDrawTom(x, y,R,0xff000000);
 	}
 	void MoveJudge()
 	{

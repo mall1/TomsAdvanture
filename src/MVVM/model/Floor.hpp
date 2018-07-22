@@ -17,7 +17,7 @@ public:
     {
         float R = Base::Block_Size / 2;
         double x=PositionX+Base::BaseX;
-        double y=PositionY+BaSE::BaseY;
+        double y=PositionY+Base::BaseY;
         Graphic::gameDrawRect(x-R, x+R, y+R, y-R, 0, 0xffff0000);
 	}
 };

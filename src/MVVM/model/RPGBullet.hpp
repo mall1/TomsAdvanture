@@ -30,7 +30,7 @@ public:
 	void ReDraw()
 	{
 		double x=PositionX+Base::BaseX;
-        double y=PositionY+BaSE::BaseY;
+        double y=PositionY+Base::BaseY;
         float R = BulletSize / 2;
         if (!isEnemy)
             Graphic::gameDrawTom(x, y,R,0xffffffff);

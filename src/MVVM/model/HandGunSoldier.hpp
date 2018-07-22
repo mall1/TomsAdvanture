@@ -40,7 +40,7 @@ public:
 	{
         float R = Height / 2;
         double x=PositionX+Base::BaseX;
-        double y=PositionY+BaSE::BaseY;
+        double y=PositionY+Base::BaseY;
         Graphic::gameDrawTom(x, y, R, 0xff00ffff);
 	}
     void MoveStep(double fx, double fy)

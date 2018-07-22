@@ -44,7 +44,7 @@ public:
 		float R1 = Width / 2;
         float R2 = Height / 2;
         double x=PositionX+Base::BaseX;
-        double y=PositionY+BaSE::BaseY;
+        double y=PositionY+Base::BaseY;
         Graphic::gameDrawTom(x, y,R1,0xff0080ff);
 	}
 	void IsDied()
