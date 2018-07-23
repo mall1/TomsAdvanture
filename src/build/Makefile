@@ -180,11 +180,13 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		MVVM/model/map.hpp \
 		MVVM/model/game.hpp \
 		MVVM/viewmodel/gamestate.hpp \
-		MVVM/model/tom.hpp \
 		MVVM/view/gamescane.hpp \
 		MVVM/model/monster.hpp \
 		MVVM/model/tool.hpp \
-		MVVM/model/gun.hpp ../MVVM/app/app.cpp
+		MVVM/model/gun.hpp \
+		MVVM/model/xml_operation.hpp \
+		MVVM/model/tom.hpp \
+		MVVM/model/living.h ../MVVM/app/app.cpp
 QMAKE_TARGET  = TomsAdventure
 DESTDIR       = 
 TARGET        = TomsAdventure
@@ -481,8 +483,10 @@ app.o: ../MVVM/app/app.cpp ../MVVM/view/ui.hpp \
 		../MVVM/model/game.hpp \
 		../MVVM/model/map.hpp \
 		../MVVM/model/tom.hpp \
+		../MVVM/model/living.h \
 		../MVVM/common/graphic.hpp \
 		../MVVM/common/texture.hpp \
+		../MVVM/model/monster.hpp \
 		../MVVM/view/view.hpp \
 		../MVVM/view/layout.hpp \
 		../MVVM/view/button.hpp \

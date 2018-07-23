@@ -26,7 +26,6 @@ public:
     enum KeyEventType{keyUp, keyDown};
 
     Control(GameState* gamestate);
-    void (*gameControlFunc)(gameControlSignal);
 
     void feedButtonClickSignal(int id){
         WindowState::feedSignal((WindowState::Signal)id);
@@ -44,7 +43,9 @@ public:
         case moverdown: gamestate->tomr=1;break;
         case movetdown: gamestate->tomt=1;break;
         case movebdown: gamestate->tomb=1;break;
-
+        case fireup:    gamestate->fire=0;break;
+        case firedown:  gamestate->fire=1;break;
+        default:break;
         }
     }
 
@@ -56,7 +57,6 @@ Control::Control(GameState *gamestate){
     initY=720;
     isQuit=0;
     this->gamestate=gamestate;
-    gameControlFunc=0;
     keymap.l='a';
     keymap.r='d';
     keymap.t='w';

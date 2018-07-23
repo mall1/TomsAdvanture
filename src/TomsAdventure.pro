@@ -23,8 +23,10 @@ HEADERS += \
     MVVM/model/map.hpp \
     MVVM/model/game.hpp \
     MVVM/viewmodel/gamestate.hpp \
-    MVVM/model/tom.hpp \
     MVVM/view/gamescane.hpp \
     MVVM/model/monster.hpp \
     MVVM/model/tool.hpp \
-    MVVM/model/gun.hpp
+    MVVM/model/gun.hpp \
+    MVVM/model/xml_operation.hpp \
+    MVVM/model/tom.hpp \
+    MVVM/model/living.h

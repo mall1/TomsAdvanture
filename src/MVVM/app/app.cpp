@@ -20,6 +20,7 @@ int main()
     uiptr=&ui;
     Event::bindKeyboardFunc(keyboard);
     Event::bindMouseFunc(mouse);
+
     while (!ui.isQuit()) {
         ui.nextFrame();
         if( timer.get_ticks() < 1000. / ui.getfps() )

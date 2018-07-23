@@ -43,6 +43,9 @@ namespace Graphic{
             SDL_FillRect(screen, &t, color);
         }
     }
+    void drawBlock(int blockHeight, int lx, int rx, int ty, int by, void * texture, unsigned int color, int subGraphRule[3]){//color functions
+        drawRect(lx,rx,ty+blockHeight,by,texture,color,subGraphRule);
+    }
 
     void gameDrawTom(double x, double y, double R, unsigned int color){
         gameDrawRect(x-R, x+R, y+R, y-R, 0, color);
@@ -51,6 +54,8 @@ namespace Graphic{
     void gameDrawBullet(double x, double y, double R, unsigned int color){
         gameDrawRect(x-R, x+R, y+R, y-R, 0, color);
     }
+
+    bool setWindowTitle(std::string title);
 }
 
 
@@ -107,7 +112,6 @@ void Graphic::drawRect(int lx, int rx, int ty, int by, void * texture, unsigned 
     }
 }
 
-
 void Graphic::drawFont(int lx, int ty, std::string text, std::string fontName, int fontSize, unsigned int color){
 
     TTF_Font *font = getFont( fontName.c_str(), fontSize );
@@ -127,7 +131,13 @@ bool Graphic::init()
     if( TTF_Init() == -1 )
         return false;
     screen = SDL_SetVideoMode( initW, initH, 32, SDL_SWSURFACE );
-
+    setWindowTitle("TomsAdventure");
     return true;
 }
+
+bool Graphic::setWindowTitle(std::string title){
+    SDL_WM_SetCaption( title.c_str(), NULL );
+    return true;
+}
+
 #endif // GRAPHIC_HPP

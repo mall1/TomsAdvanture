@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Tom>
+    <name>Tom</name>
+    <x>0</x>
+    <y>0</y>
+    <blood>10</blood>
+    <speed>100</speed>
+    <height>20</height>
+    <width>20</width>
+    <texture>G:\\C++\image</texture>
+    <Graph>
+	<num_x>4</num_x>
+	<num_y>4</num_y>
+	<index>0</index>
+    </Graph>
+    <color>255</color>
+</Tom>
